@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
@@ -12,17 +12,147 @@
 <title>홋카이도 여행 2026 ❄️</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❄️</text></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23DFF0FB' width='100' height='100' rx='20'/><text x='50' y='58' text-anchor='middle' font-size='55'>❄️</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=optional" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES — THEME SYSTEM
+   ═══════════════════════════════════════════ */
+:root {
+  /* Light theme (default) */
+  --bg-gradient-1: #DFF0FB;
+  --bg-gradient-2: #EDE7F3;
+  --bg-gradient-3: #F8F5FA;
+  --glass-bg: rgba(255,255,255,.55);
+  --glass-border: rgba(135,206,250,.3);
+  --text-primary: #2C5F8A;
+  --text-secondary: #8BAFC8;
+  --text-accent: #5B8DB8;
+  --text-muted: #A8C0D4;
+  --text-label: #6B9CC7;
+  --text-link: #4A8ABF;
+  --btn-gradient-1: #7BC0F5;
+  --btn-gradient-2: #4A9CD9;
+  --btn-shadow: rgba(74,154,217,.3);
+  --btn-sec-bg: rgba(135,206,250,.2);
+  --btn-sec-border: rgba(135,206,250,.3);
+  --input-border: #D4E8F5;
+  --input-bg: #fff;
+  --card-blue-bg: #E8F4FD;
+  --card-orange-bg: #FFF0E0;
+  --card-green-bg: #E8F5E9;
+  --card-red-bg: #FFEBEE;
+  --card-furukawa-bg: rgba(129,199,132,.1);
+  --card-furukawa-border: rgba(129,199,132,.25);
+  --outfit-top-bg1: #E8F4FD;
+  --outfit-top-bg2: #D4ECFC;
+  --outfit-bottom-bg1: #F0E6F6;
+  --outfit-bottom-bg2: #E8D8F0;
+  --outfit-top-label: #7BAFD4;
+  --outfit-top-text: #3A7CA5;
+  --outfit-bottom-label: #A07DBF;
+  --outfit-bottom-text: #6D4A8A;
+  --todo-unchecked-bg: rgba(255,255,255,.55);
+  --todo-unchecked-border: rgba(135,206,250,.2);
+  --todo-checked-bg: rgba(135,206,250,.12);
+  --todo-checked-border: rgba(135,206,250,.3);
+  --checkbox-border: #A8D4F0;
+  --checkbox-bg: #fff;
+  --progress-track: #E8F0F5;
+  --couple-badge-bg: #FFE4EC;
+  --couple-badge-text: #D4668A;
+  --color-over: #E05555;
+  --color-under: #4A9A5A;
+  --color-est: #E8A040;
+  --color-orange: #D4882A;
+  --color-free: #B0D0E8;
+  --del-normal-bg: #FFEBEE;
+  --del-normal-text: #D44A4A;
+  --del-confirm-bg: #D44A4A;
+  --snow-color: #fff;
+  --snow-opacity-base: 0.12;
+  --meta-color: #7BAFD4;
+  --spending-border: rgba(135,206,250,.1);
+  --tab-bg: rgba(255,255,255,.5);
+  --tab-border: rgba(135,206,250,.3);
+  --tab-text: #5B8DB8;
+  --toast-bg: rgba(255,255,255,.95);
+  --toast-shadow: rgba(0,0,0,.1);
+}
+
+[data-theme="dark"] {
+  --bg-gradient-1: #0F1923;
+  --bg-gradient-2: #141E2B;
+  --bg-gradient-3: #1A2535;
+  --glass-bg: rgba(30,45,65,.65);
+  --glass-border: rgba(80,140,200,.2);
+  --text-primary: #C8E0F4;
+  --text-secondary: #6A8FAA;
+  --text-accent: #7AACCE;
+  --text-muted: #4A6A82;
+  --text-label: #5E92B8;
+  --text-link: #6AACCF;
+  --btn-gradient-1: #3A8AD0;
+  --btn-gradient-2: #2A6AAA;
+  --btn-shadow: rgba(40,100,180,.3);
+  --btn-sec-bg: rgba(60,120,180,.15);
+  --btn-sec-border: rgba(60,120,180,.25);
+  --input-border: #2A4A65;
+  --input-bg: #1A2E42;
+  --card-blue-bg: rgba(40,80,130,.3);
+  --card-orange-bg: rgba(120,80,30,.25);
+  --card-green-bg: rgba(40,100,50,.2);
+  --card-red-bg: rgba(120,40,40,.2);
+  --card-furukawa-bg: rgba(60,130,70,.15);
+  --card-furukawa-border: rgba(60,130,70,.25);
+  --outfit-top-bg1: rgba(40,80,130,.3);
+  --outfit-top-bg2: rgba(35,70,115,.4);
+  --outfit-bottom-bg1: rgba(80,50,110,.3);
+  --outfit-bottom-bg2: rgba(70,40,100,.4);
+  --outfit-top-label: #5E92B8;
+  --outfit-top-text: #80BBD8;
+  --outfit-bottom-label: #9070B0;
+  --outfit-bottom-text: #B090D0;
+  --todo-unchecked-bg: rgba(30,50,70,.5);
+  --todo-unchecked-border: rgba(60,120,180,.15);
+  --todo-checked-bg: rgba(40,80,130,.2);
+  --todo-checked-border: rgba(60,120,180,.2);
+  --checkbox-border: #3A7AAA;
+  --checkbox-bg: #1A2E42;
+  --progress-track: #1E3448;
+  --couple-badge-bg: rgba(180,70,100,.25);
+  --couple-badge-text: #D080A0;
+  --color-over: #E06060;
+  --color-under: #60B070;
+  --color-est: #D0A050;
+  --color-orange: #D09040;
+  --color-free: #4A6A82;
+  --del-normal-bg: rgba(180,50,50,.2);
+  --del-normal-text: #E07070;
+  --del-confirm-bg: #C04040;
+  --snow-color: rgba(200,220,240,.6);
+  --snow-opacity-base: 0.06;
+  --meta-color: #5E8AAA;
+  --spending-border: rgba(60,120,180,.1);
+  --tab-bg: rgba(30,50,70,.5);
+  --tab-border: rgba(60,120,180,.2);
+  --tab-text: #6A9ABB;
+  --toast-bg: rgba(25,40,55,.95);
+  --toast-shadow: rgba(0,0,0,.3);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 html,body{overscroll-behavior:none;overflow-x:hidden}
 body{
-  font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','Segoe UI',sans-serif;
   min-height:100vh;min-height:100dvh;
-  background:linear-gradient(180deg,#DFF0FB 0%,#EDE7F3 40%,#F8F5FA 100%);
-  color:#2C5F8A;
+  background:linear-gradient(180deg,var(--bg-gradient-1) 0%,var(--bg-gradient-2) 40%,var(--bg-gradient-3) 100%);
+  color:var(--text-primary);
   padding:0;
   -webkit-font-smoothing:antialiased;
+  transition:background .3s,color .3s;
 }
 ::-webkit-scrollbar{display:none}
 input,select,button{font-family:inherit;-webkit-appearance:none;appearance:none}
@@ -32,167 +162,247 @@ input[type=number]{-moz-appearance:textfield}
 
 /* Snowflakes */
 .snow-wrap{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.snowflake{position:absolute;top:-10px;border-radius:50%;background:#fff}
+.snowflake{position:absolute;top:-10px;border-radius:50%;background:var(--snow-color)}
 
 /* Layout */
-.app{position:relative;z-index:1;padding:16px 16px calc(env(safe-area-inset-bottom,20px) + 20px);padding-top:max(env(safe-area-inset-top,16px),16px);max-width:500px;margin:0 auto;min-height:100vh;min-height:100dvh}
+.app{position:relative;z-index:1;padding:16px 16px calc(env(safe-area-inset-bottom,20px) + 20px);padding-top:max(env(safe-area-inset-top,16px),16px);max-width:500px;margin:0 auto;min-height:100vh;min-height:100dvh;touch-action:pan-y}
 
 /* Glass Card */
-.glass{background:rgba(255,255,255,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;border:1px solid rgba(135,206,250,.3)}
+.glass{background:var(--glass-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;border:1px solid var(--glass-border);transition:background .3s,border-color .3s}
 
 /* Header */
 .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
-.meta{font-size:10px;color:#7BAFD4;font-weight:600;letter-spacing:2px}
-.title{font-size:22px;font-weight:900;color:#2C5F8A;margin-top:2px}
-.sub{font-size:11px;color:#8BAFC8;margin-top:2px}
+.header-left{flex:1}
+.header-right{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.meta{font-size:10px;color:var(--meta-color);font-weight:600;letter-spacing:2px}
+.title{font-size:22px;font-weight:900;color:var(--text-primary);margin-top:2px}
+.sub{font-size:11px;color:var(--text-secondary);margin-top:2px}
 
 /* Buttons */
-.btn-primary{background:linear-gradient(135deg,#7BC0F5,#4A9CD9);color:#fff;border:none;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(74,154,217,.3);touch-action:manipulation;transition:transform .1s}
+.btn-primary{background:linear-gradient(135deg,var(--btn-gradient-1),var(--btn-gradient-2));color:#fff;border:none;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px var(--btn-shadow);touch-action:manipulation;transition:transform .1s}
 .btn-primary:active{transform:scale(.95)}
-.btn-secondary{background:rgba(135,206,250,.2);border:1px solid rgba(135,206,250,.3);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:#4A8ABF;cursor:pointer;touch-action:manipulation}
+.btn-secondary{background:var(--btn-sec-bg);border:1px solid var(--btn-sec-border);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--text-link);cursor:pointer;touch-action:manipulation;transition:background .3s}
+.btn-icon{background:var(--btn-sec-bg);border:1px solid var(--btn-sec-border);border-radius:10px;padding:6px 10px;font-size:14px;cursor:pointer;touch-action:manipulation;transition:background .2s;line-height:1}
+.btn-icon:active{transform:scale(.92)}
 
 /* Clocks */
 .clocks{display:flex;gap:10px;margin-bottom:12px}
 .clock-card{flex:1;text-align:center;padding:10px 14px}
-.clock-label{font-size:11px;color:#6B9CC7;font-weight:600;margin-bottom:2px}
-.clock-time{font-size:22px;font-weight:800;color:#2C5F8A;font-variant-numeric:tabular-nums;letter-spacing:1px}
+.clock-label{font-size:11px;color:var(--text-label);font-weight:600;margin-bottom:2px}
+.clock-time{font-size:22px;font-weight:800;color:var(--text-primary);font-variant-numeric:tabular-nums;letter-spacing:1px}
 
 /* Day Tabs */
 .day-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
-.day-tab{flex:0 0 auto;padding:8px 14px;border-radius:12px;cursor:pointer;text-align:center;font-size:12px;font-weight:700;transition:all .2s;touch-action:manipulation;scroll-snap-align:start;border:1px solid rgba(135,206,250,.3);background:rgba(255,255,255,.5);color:#5B8DB8}
-.day-tab.active{border:none;background:linear-gradient(135deg,#7BC0F5,#5AADE0);color:#fff;box-shadow:0 4px 12px rgba(74,154,217,.25)}
+.day-tab{flex:0 0 auto;padding:8px 14px;border-radius:12px;cursor:pointer;text-align:center;font-size:12px;font-weight:700;transition:all .2s;touch-action:manipulation;scroll-snap-align:start;border:1px solid var(--tab-border);background:var(--tab-bg);color:var(--tab-text)}
+.day-tab.active{border:none;background:linear-gradient(135deg,var(--btn-gradient-1),var(--btn-gradient-2));color:#fff;box-shadow:0 4px 12px var(--btn-shadow)}
+.day-tab[role="tab"]{outline:none}
+.day-tab[role="tab"]:focus-visible{outline:2px solid var(--btn-gradient-2);outline-offset:2px}
 .day-tab-num{font-weight:700}
 .day-tab-date{font-size:10px;opacity:.85;margin-top:1px}
 
 /* Day Header */
 .day-header{padding:12px 16px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
-.day-title{font-size:16px;font-weight:800;color:#2C5F8A}
-.day-sub{font-size:11px;color:#8BAFC8}
+.day-title{font-size:16px;font-weight:800;color:var(--text-primary)}
+.day-sub{font-size:11px;color:var(--text-secondary)}
 .day-cost{text-align:right}
-.day-yen{font-size:14px;font-weight:700;color:#2C5F8A}
-.day-krw{font-size:10px;color:#8BAFC8}
+.day-yen{font-size:14px;font-weight:700;color:var(--text-primary)}
+.day-krw{font-size:10px;color:var(--text-secondary)}
 
 /* Outfit */
-.outfit-title{font-size:13px;font-weight:700;color:#5B8DB8;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.couple-badge{font-size:10px;background:#FFE4EC;color:#D4668A;padding:2px 8px;border-radius:8px;font-weight:600}
+.outfit-title{font-size:13px;font-weight:700;color:var(--text-accent);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.couple-badge{font-size:10px;background:var(--couple-badge-bg);color:var(--couple-badge-text);padding:2px 8px;border-radius:8px;font-weight:600}
 .outfit-grid{display:flex;gap:8px;margin-bottom:14px}
 .outfit-person{flex:1;text-align:center;padding:12px 10px}
-.outfit-name{font-size:12px;font-weight:800;color:#4A8ABF;margin-bottom:10px}
+.outfit-name{font-size:12px;font-weight:800;color:var(--text-link);margin-bottom:10px}
 .outfit-items{display:flex;gap:6px}
 .outfit-item{flex:1;border-radius:12px;padding:10px 6px}
-.outfit-item.top{background:linear-gradient(135deg,#E8F4FD,#D4ECFC)}
-.outfit-item.bottom{background:linear-gradient(135deg,#F0E6F6,#E8D8F0)}
+.outfit-item.top{background:linear-gradient(135deg,var(--outfit-top-bg1),var(--outfit-top-bg2))}
+.outfit-item.bottom{background:linear-gradient(135deg,var(--outfit-bottom-bg1),var(--outfit-bottom-bg2))}
 .outfit-emoji{font-size:24px;margin-bottom:4px}
 .outfit-label{font-size:9px;font-weight:600;margin-bottom:2px}
-.outfit-item.top .outfit-label{color:#7BAFD4}
-.outfit-item.bottom .outfit-label{color:#A07DBF}
+.outfit-item.top .outfit-label{color:var(--outfit-top-label)}
+.outfit-item.bottom .outfit-label{color:var(--outfit-bottom-label)}
 .outfit-text{font-size:10px;font-weight:700;line-height:1.3}
-.outfit-item.top .outfit-text{color:#3A7CA5}
-.outfit-item.bottom .outfit-text{color:#6D4A8A}
+.outfit-item.top .outfit-text{color:var(--outfit-top-text)}
+.outfit-item.bottom .outfit-text{color:var(--outfit-bottom-text)}
 
 /* TODO */
-.todo-title{font-size:13px;font-weight:700;color:#5B8DB8;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.todo-item{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;margin-bottom:6px;transition:all .2s;touch-action:manipulation}
-.todo-item.unchecked{background:rgba(255,255,255,.55);border:1px solid rgba(135,206,250,.2)}
-.todo-item.checked{background:rgba(135,206,250,.12);border:1px solid rgba(135,206,250,.3);opacity:.65}
+.todo-title{font-size:13px;font-weight:700;color:var(--text-accent);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.todo-item{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;margin-bottom:6px;transition:all .2s}
+.todo-item.unchecked{background:var(--todo-unchecked-bg);border:1px solid var(--todo-unchecked-border)}
+.todo-item.checked{background:var(--todo-checked-bg);border:1px solid var(--todo-checked-border);opacity:.65}
 .checkbox{width:24px;height:24px;border-radius:8px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;touch-action:manipulation}
-.checkbox.off{border:2px solid #A8D4F0;background:#fff}
-.checkbox.on{border:none;background:linear-gradient(135deg,#7BC0F5,#4A9CD9)}
+.checkbox[role="checkbox"]{outline:none}
+.checkbox[role="checkbox"]:focus-visible{outline:2px solid var(--btn-gradient-2);outline-offset:2px}
+.checkbox.off{border:2px solid var(--checkbox-border);background:var(--checkbox-bg)}
+.checkbox.on{border:none;background:linear-gradient(135deg,var(--btn-gradient-1),var(--btn-gradient-2))}
 .checkbox.on::after{content:'✓';color:#fff;font-size:14px;font-weight:800}
-.todo-time{width:44px;font-size:12px;font-weight:700;color:#4A8ABF;font-variant-numeric:tabular-nums;flex-shrink:0}
+.todo-time{width:44px;font-size:12px;font-weight:700;color:var(--text-link);font-variant-numeric:tabular-nums;flex-shrink:0}
 .todo-info{flex:1;min-width:0}
-.todo-activity{font-size:12px;font-weight:700;color:#2C5F8A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.todo-location{font-size:10px;color:#8BAFC8;margin-top:1px}
-.checked .todo-time,.checked .todo-activity{text-decoration:line-through;color:#9BBDD4}
-.todo-cost{text-align:right;flex-shrink:0}
-.cost-yen{font-size:12px;font-weight:700;color:#2C5F8A}
-.cost-yen.est{color:#E8A040}
+.todo-activity{font-size:12px;font-weight:700;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.todo-location{font-size:10px;color:var(--text-secondary);margin-top:1px}
+.checked .todo-time,.checked .todo-activity{text-decoration:line-through;color:var(--text-muted)}
+.todo-cost{text-align:right;flex-shrink:0;display:flex;align-items:center;gap:4px}
+.cost-yen{font-size:12px;font-weight:700;color:var(--text-primary)}
+.cost-yen.est{color:var(--color-est)}
 .cost-est{font-size:8px;margin-left:2px}
-.cost-free{font-size:10px;color:#B0D0E8;font-weight:600}
+.cost-free{font-size:10px;color:var(--color-free);font-weight:600}
 .cost-diff{font-size:9px;font-weight:700;margin-top:1px}
-.cost-diff.over{color:#E05555}
-.cost-diff.under{color:#4A9A5A}
+.cost-diff.over{color:var(--color-over)}
+.cost-diff.under{color:var(--color-under)}
+.btn-quick-spend{background:var(--btn-sec-bg);border:1px solid var(--btn-sec-border);border-radius:6px;padding:3px 6px;font-size:9px;font-weight:600;color:var(--text-link);cursor:pointer;touch-action:manipulation;white-space:nowrap;flex-shrink:0}
+.btn-quick-spend:active{transform:scale(.92)}
 
 /* Budget Screen */
 .budget-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.budget-title{font-size:20px;font-weight:800;color:#2C5F8A}
+.budget-title{font-size:20px;font-weight:800;color:var(--text-primary)}
+.budget-actions{display:flex;gap:6px;align-items:center}
 .rate-bar{padding:14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
 .rate-icon{font-size:20px}
-.rate-val{font-size:14px;font-weight:700;color:#2C5F8A}
-.rate-time{font-size:10px;color:#8BAFC8}
+.rate-val{font-size:14px;font-weight:700;color:var(--text-primary)}
+.rate-time{font-size:10px;color:var(--text-secondary)}
 .summary-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
-.summary-card{border-radius:14px;padding:12px 8px;text-align:center}
+.summary-card{border-radius:14px;padding:12px 8px;text-align:center;transition:background .3s}
 .summary-label{font-size:10px;font-weight:600;margin-bottom:4px}
 .summary-val{font-size:14px;font-weight:800}
 .summary-sub{font-size:10px;opacity:.7;margin-top:2px}
-.summary-edit{font-size:8px;color:#A8C0D4;margin-top:2px}
+.summary-edit{font-size:8px;color:var(--text-muted);margin-top:2px}
 .progress-wrap{padding:10px 14px;margin-bottom:14px}
 .progress-top{display:flex;justify-content:space-between;margin-bottom:6px}
-.progress-label{font-size:10px;color:#8BAFC8;font-weight:600}
+.progress-label{font-size:10px;color:var(--text-secondary);font-weight:600}
 .progress-pct{font-size:10px;font-weight:700}
-.progress-bar{height:8px;background:#E8F0F5;border-radius:4px;overflow:hidden}
+.progress-bar{height:8px;background:var(--progress-track);border-radius:4px;overflow:hidden}
 .progress-fill{height:100%;border-radius:4px;transition:width .5s ease}
-.progress-note{font-size:9px;color:#A8C0D4;margin-top:4px;text-align:center}
+.progress-note{font-size:9px;color:var(--text-muted);margin-top:4px;text-align:center}
 .input-section{padding:16px;margin-bottom:16px}
-.input-title{font-size:14px;font-weight:700;color:#2C5F8A;margin-bottom:12px}
+.input-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px}
 .input-row{display:flex;gap:6px;margin-bottom:4px;flex-wrap:wrap}
 .input-row-top{display:flex;gap:6px;width:100%;margin-bottom:6px}
 .input-row-bottom{display:flex;gap:6px;width:100%}
-.input-select{width:72px;padding:10px 4px;border-radius:10px;border:1px solid #D4E8F5;font-size:12px;outline:none;background:#fff;color:#4A8ABF;font-weight:600}
-.input-text{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #D4E8F5;font-size:13px;outline:none;background:#fff}
-.input-number{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #D4E8F5;font-size:13px;outline:none;background:#fff}
-.input-hint{font-size:10px;color:#A8C0D4;text-align:center;margin-top:4px}
-.btn-add{background:linear-gradient(135deg,#7BC0F5,#4A9CD9);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0;touch-action:manipulation}
+.input-select{width:72px;padding:10px 4px;border-radius:10px;border:1px solid var(--input-border);font-size:12px;outline:none;background:var(--input-bg);color:var(--text-link);font-weight:600;transition:background .3s,border-color .3s}
+.input-text{flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--input-border);font-size:13px;outline:none;background:var(--input-bg);color:var(--text-primary);transition:background .3s,border-color .3s}
+.input-number{flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--input-border);font-size:13px;outline:none;background:var(--input-bg);color:var(--text-primary);transition:background .3s,border-color .3s}
+.input-hint{font-size:10px;color:var(--text-muted);text-align:center;margin-top:4px}
+.btn-add{background:linear-gradient(135deg,var(--btn-gradient-1),var(--btn-gradient-2));color:#fff;border:none;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0;touch-action:manipulation}
 .day-budget{padding:12px 14px;margin-bottom:8px}
 .day-budget-top{display:flex;justify-content:space-between;align-items:center}
-.day-budget-label{font-size:12px;font-weight:700;color:#4A8ABF}
-.day-budget-title{font-size:11px;color:#8BAFC8;margin-left:6px}
-.day-budget-planned{font-size:11px;color:#8BAFC8}
-.day-budget-actual{font-size:12px;font-weight:700;color:#2C5F8A}
+.day-budget-label{font-size:12px;font-weight:700;color:var(--text-link)}
+.day-budget-title{font-size:11px;color:var(--text-secondary);margin-left:6px}
+.day-budget-planned{font-size:11px;color:var(--text-secondary)}
+.day-budget-actual{font-size:12px;font-weight:700;color:var(--text-primary)}
 .day-budget-diff{font-size:10px;font-weight:700}
-.spending-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid rgba(135,206,250,.1);font-size:12px}
-.spending-name{color:#5B8DB8;flex:1}
-.spending-cost{font-weight:600;color:#2C5F8A;font-variant-numeric:tabular-nums}
-.spending-krw{font-size:10px;color:#8BAFC8;margin-left:6px}
+.spending-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--spending-border);font-size:12px}
+.spending-name{color:var(--text-accent);flex:1}
+.spending-cost{font-weight:600;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.spending-krw{font-size:10px;color:var(--text-secondary);margin-left:6px}
 .btn-delete{border:none;border-radius:6px;padding:2px 6px;font-size:10px;cursor:pointer;font-weight:600;margin-left:6px;transition:all .15s;touch-action:manipulation}
-.btn-delete.normal{background:#FFEBEE;color:#D44A4A}
-.btn-delete.confirm{background:#D44A4A;color:#fff}
-.furukawa-card{background:rgba(129,199,132,.1);border-radius:14px;padding:12px 16px;margin-top:4px;border:1px solid rgba(129,199,132,.25);display:flex;justify-content:space-between;align-items:center}
-.furukawa-label{font-size:13px;font-weight:700;color:#4A9A5A}
-.furukawa-sub{font-size:10px;color:#8BAFC8}
-.budget-edit-input{width:100%;font-size:13px;font-weight:700;text-align:center;border:1px solid #A8D4F0;border-radius:8px;padding:4px;outline:none;background:#fff}
-.btn-confirm-budget{margin-top:4px;font-size:10px;background:#4A9CD9;color:#fff;border:none;border-radius:6px;padding:3px 10px;cursor:pointer;font-weight:600}
+.btn-delete.normal{background:var(--del-normal-bg);color:var(--del-normal-text)}
+.btn-delete.confirm{background:var(--del-confirm-bg);color:#fff}
+.furukawa-card{background:var(--card-furukawa-bg);border-radius:14px;padding:12px 16px;margin-top:4px;border:1px solid var(--card-furukawa-border);display:flex;justify-content:space-between;align-items:center;transition:background .3s,border-color .3s}
+.furukawa-label{font-size:13px;font-weight:700;color:var(--color-under)}
+.furukawa-sub{font-size:10px;color:var(--text-secondary)}
+.budget-edit-input{width:100%;font-size:13px;font-weight:700;text-align:center;border:1px solid var(--checkbox-border);border-radius:8px;padding:4px;outline:none;background:var(--input-bg);color:var(--text-primary)}
+.btn-confirm-budget{margin-top:4px;font-size:10px;background:var(--btn-gradient-2);color:#fff;border:none;border-radius:6px;padding:3px 10px;cursor:pointer;font-weight:600}
+
+/* Backup/Restore section */
+.backup-section{padding:14px;margin-bottom:12px;text-align:center}
+.backup-title{font-size:12px;font-weight:700;color:var(--text-primary);margin-bottom:10px}
+.backup-btns{display:flex;gap:8px;justify-content:center}
+.backup-btns .btn-secondary{font-size:11px}
+#fileRestore{display:none}
+
+/* Quick Spend Modal */
+.modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.active{opacity:1;pointer-events:auto}
+.modal-content{width:100%;max-width:500px;background:var(--glass-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:20px 20px 0 0;padding:24px 20px calc(env(safe-area-inset-bottom,20px) + 20px);transform:translateY(100%);transition:transform .3s ease}
+.modal-overlay.active .modal-content{transform:translateY(0)}
+.modal-title{font-size:15px;font-weight:800;color:var(--text-primary);margin-bottom:4px}
+.modal-sub{font-size:11px;color:var(--text-secondary);margin-bottom:14px}
+.modal-input-row{display:flex;gap:8px;margin-bottom:10px}
+.modal-input{flex:1;padding:12px;border-radius:12px;border:1px solid var(--input-border);font-size:14px;outline:none;background:var(--input-bg);color:var(--text-primary)}
+.modal-btns{display:flex;gap:8px}
+.modal-btns .btn-primary{flex:1;padding:12px;font-size:14px}
+.modal-btns .btn-secondary{flex:1;padding:12px;text-align:center}
+
+/* Toast */
+.toast-container{position:fixed;top:max(env(safe-area-inset-top,16px),16px);left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:400px;width:calc(100% - 32px)}
+.toast{pointer-events:auto;background:var(--toast-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:12px;padding:10px 16px;font-size:12px;font-weight:600;color:var(--text-primary);box-shadow:0 4px 20px var(--toast-shadow);display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(-12px);animation:toastIn .3s ease forwards}
+.toast.out{animation:toastOut .25s ease forwards}
+@keyframes toastIn{to{opacity:1;transform:translateY(0)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(-12px)}}
+.toast-icon{font-size:16px;flex-shrink:0}
+.toast-msg{flex:1}
 
 /* Animations */
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeIn .3s ease}
 
 /* Install Banner */
-.install-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;padding:16px;padding-bottom:calc(env(safe-area-inset-bottom,16px) + 16px);background:rgba(255,255,255,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(135,206,250,.3);display:flex;align-items:center;justify-content:space-between;gap:12px}
-.install-text{font-size:12px;color:#2C5F8A;font-weight:600}
-.install-sub{font-size:10px;color:#8BAFC8;margin-top:2px}
-.btn-install{background:linear-gradient(135deg,#7BC0F5,#4A9CD9);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
-.btn-dismiss{background:none;border:none;color:#8BAFC8;font-size:11px;cursor:pointer;padding:4px 8px}
+.install-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;padding:16px;padding-bottom:calc(env(safe-area-inset-bottom,16px) + 16px);background:var(--toast-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--glass-border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.install-text{font-size:12px;color:var(--text-primary);font-weight:600}
+.install-sub{font-size:10px;color:var(--text-secondary);margin-top:2px}
+.btn-install{background:linear-gradient(135deg,var(--btn-gradient-1),var(--btn-gradient-2));color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-dismiss{background:none;border:none;color:var(--text-secondary);font-size:11px;cursor:pointer;padding:4px 8px}
 .hidden{display:none!important}
+
+/* Swipe hint */
+.swipe-indicator{position:absolute;top:50%;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;pointer-events:none;opacity:0;transition:opacity .15s}
+.swipe-indicator.left{left:4px}
+.swipe-indicator.right{right:4px}
 </style>
 </head>
 <body>
 <div class="snow-wrap" id="snowWrap"></div>
 <div class="app" id="app"></div>
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Quick Spend Modal -->
+<div class="modal-overlay" id="quickModal">
+  <div class="modal-content">
+    <div class="modal-title" id="qmTitle">💸 실제 금액 입력</div>
+    <div class="modal-sub" id="qmSub"></div>
+    <div class="modal-input-row">
+      <input class="modal-input" id="qmInput" type="number" placeholder="¥ 실제 금액">
+    </div>
+    <div class="modal-btns">
+      <button class="btn-primary" onclick="submitQuickSpend()">저장</button>
+      <button class="btn-secondary" onclick="closeQuickSpend()">취소</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="fileRestore" accept=".json" onchange="handleRestore(event)">
 
 <script>
 // ═══════════════════════════════════════════
-// DATA
+// CONFIG — 재사용 시 여기만 수정 (A-1, A-2)
 // ═══════════════════════════════════════════
-const OUTFITS=[
-  {day:1,준영:{top:"청록색 니트",bottom:"검정 바지",te:"🧶",be:"👖"},정원:{top:"니트",bottom:"회색 바지",te:"🧶",be:"👖"}},
-  {day:2,준영:{top:"셔츠 + 노란 스웨터",bottom:"청바지",te:"👔",be:"👖"},정원:{top:"노란 스웨터",bottom:"청치마",te:"🧶",be:"👗"}},
-  {day:3,준영:{top:"셔츠 + 검정조끼",bottom:"검정 바지",te:"🦺",be:"👖"},정원:{top:"검정 오프숄더",bottom:"체크무늬 롱치마",te:"👚",be:"👗"}},
-  {day:4,준영:{top:"하늘색 스웨터",bottom:"흰 바지",te:"🧶",be:"👖"},정원:{top:"하늘색 스웨터",bottom:"흰 바지",te:"🧶",be:"👖"}},
-  {day:5,준영:{top:"회색 체크 맨투맨",bottom:"흰 바지",te:"👕",be:"👖"},정원:{top:"니트",bottom:"회색 바지",te:"🧶",be:"👖"}}
+const CONFIG = {
+  travelers: ["준영", "정원"],
+  tripTitle: "홋카이도 여행",
+  tripEmoji: "❄️",
+  tripPeriod: "2026.02.24 — 02.28",
+  tripDuration: "4박 5일",
+  currency: { from: "JPY", to: "KRW", symbol: "¥", toSymbol: "₩" },
+  rateApi: "https://open.er-api.com/v6/latest/JPY",
+  defaultRate: 9.36,
+  defaultBudget: 200000,
+  storagePrefix: "hk",
+  timezones: [
+    { label: "🇰🇷 대한민국", tz: "Asia/Seoul" },
+    { label: "🇯🇵 삿포로", tz: "Asia/Tokyo" }
+  ]
+};
+
+const OUTFITS = [
+  {day:1,[CONFIG.travelers[0]]:{top:"청록색 니트",bottom:"검정 바지",te:"🧶",be:"👖"},[CONFIG.travelers[1]]:{top:"니트",bottom:"회색 바지",te:"🧶",be:"👖"}},
+  {day:2,[CONFIG.travelers[0]]:{top:"셔츠 + 노란 스웨터",bottom:"청바지",te:"👔",be:"👖"},[CONFIG.travelers[1]]:{top:"노란 스웨터",bottom:"청치마",te:"🧶",be:"👗"}},
+  {day:3,[CONFIG.travelers[0]]:{top:"셔츠 + 검정조끼",bottom:"검정 바지",te:"🦺",be:"👖"},[CONFIG.travelers[1]]:{top:"검정 오프숄더",bottom:"체크무늬 롱치마",te:"👚",be:"👗"}},
+  {day:4,[CONFIG.travelers[0]]:{top:"하늘색 스웨터",bottom:"흰 바지",te:"🧶",be:"👖"},[CONFIG.travelers[1]]:{top:"하늘색 스웨터",bottom:"흰 바지",te:"🧶",be:"👖"}},
+  {day:5,[CONFIG.travelers[0]]:{top:"회색 체크 맨투맨",bottom:"흰 바지",te:"👕",be:"👖"},[CONFIG.travelers[1]]:{top:"니트",bottom:"회색 바지",te:"🧶",be:"👖"}}
 ];
 
-const DAYS=[
+const DAYS = [
   {day:1,date:"2/24",wd:"화",title:"인천 → 노보리베쓰",events:[
     {t:"10:00",a:"공항 도착",l:"인천공항",c:0,i:"✈️"},
     {t:"11:00",a:"공항밥",l:"인천공항",c:1500,i:"🍱",e:1},
@@ -248,165 +458,371 @@ const DAYS=[
     {t:"18:10",a:"도착 (돼지)",l:"인천공항",c:0,i:"🛬"}
   ]}
 ];
-const FURUKAWA=41000;
-const RATE_API="https://open.er-api.com/v6/latest/JPY";
+
+const FURUKAWA = 41000;
 
 // ═══════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════
-const load=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}};
-const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
-const fmt=n=>n.toLocaleString("ko-KR");
+const SK = CONFIG.storagePrefix;
+const load = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d } catch { return d } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)) } catch {} };
+const fmt = n => n.toLocaleString("ko-KR");
 
-let state={
-  activeDay:0,
-  showBudget:false,
-  checked:load("hk-c",{}),
-  rate:load("hk-r",9.36),
-  rateTime:load("hk-rt","기본값 사용 중"),
-  rateLoading:false,
-  spending:load("hk-s",[]),
-  budget:load("hk-b",200000),
-  editingBudget:false,
-  budgetInput:"",
-  confirmDelete:null,
-  inputDay:1,
-  inputName:"",
-  inputCost:""
+let state = {
+  activeDay: 0,
+  showBudget: false,
+  checked: load(`${SK}-c`, {}),
+  rate: load(`${SK}-r`, CONFIG.defaultRate),
+  rateTime: load(`${SK}-rt`, "기본값 사용 중"),
+  rateLoading: false,
+  spending: load(`${SK}-s`, []),
+  budget: load(`${SK}-b`, CONFIG.defaultBudget),
+  editingBudget: false,
+  budgetInput: "",
+  confirmDelete: null,
+  confirmDeleteTimer: null, // C-1: auto-reset timer
+  inputDay: 1,
+  inputName: "",
+  inputCost: "",
+  darkMode: load(`${SK}-dm`, false),
+  quickSpend: null // {dayIdx, eventIdx, eventName, plannedCost}
 };
 
-function setState(patch){
-  Object.assign(state,patch);
-  render();
+// Apply saved theme immediately
+if (state.darkMode) document.documentElement.setAttribute('data-theme', 'dark');
+
+let _renderQueued = false;
+function setState(patch) {
+  Object.assign(state, patch);
+  if (!_renderQueued) {
+    _renderQueued = true;
+    requestAnimationFrame(() => { _renderQueued = false; render(); });
+  }
 }
 
 // ═══════════════════════════════════════════
-// SNOWFLAKES
+// TOAST SYSTEM
 // ═══════════════════════════════════════════
-function initSnow(){
-  const w=document.getElementById("snowWrap");
-  for(let i=0;i<18;i++){
-    const f=document.createElement("div");
-    f.className="snowflake";
-    const s=2+Math.random()*5,d=7+Math.random()*8,dl=Math.random()*10,l=Math.random()*100,o=.12+Math.random()*0.2,dr=(Math.random()-.5)*30;
-    f.style.cssText=`left:${l}%;width:${s}px;height:${s}px;opacity:${o};animation:sf${i} ${d}s linear ${dl}s infinite`;
+function showToast(msg, icon = "ℹ️", duration = 2500) {
+  const container = document.getElementById("toastContainer");
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `<span class="toast-icon">${icon}</span><span class="toast-msg">${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add("out");
+    toast.addEventListener("animationend", () => toast.remove());
+  }, duration);
+}
+
+// ═══════════════════════════════════════════
+// SNOWFLAKES (B-6: single style block)
+// ═══════════════════════════════════════════
+function initSnow() {
+  const w = document.getElementById("snowWrap");
+  let keyframes = "";
+  for (let i = 0; i < 18; i++) {
+    const f = document.createElement("div");
+    f.className = "snowflake";
+    const s = 2 + Math.random() * 5;
+    const d = 7 + Math.random() * 8;
+    const dl = Math.random() * 10;
+    const l = Math.random() * 100;
+    const o = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--snow-opacity-base')) + Math.random() * 0.2;
+    const dr = (Math.random() - .5) * 30;
+    f.style.cssText = `left:${l}%;width:${s}px;height:${s}px;opacity:${o};animation:sf${i} ${d}s linear ${dl}s infinite`;
     w.appendChild(f);
-    const style=document.createElement("style");
-    style.textContent=`@keyframes sf${i}{0%{transform:translateY(-10px)translateX(0)}50%{transform:translateY(50vh)translateX(${dr}px)}100%{transform:translateY(105vh)translateX(0)}}`;
-    document.head.appendChild(style);
+    keyframes += `@keyframes sf${i}{0%{transform:translateY(-10px)translateX(0)}50%{transform:translateY(50vh)translateX(${dr}px)}100%{transform:translateY(105vh)translateX(0)}}`;
   }
+  const style = document.createElement("style");
+  style.textContent = keyframes;
+  document.head.appendChild(style);
 }
 
 // ═══════════════════════════════════════════
 // CLOCK
 // ═══════════════════════════════════════════
-function updateClocks(){
-  const n=new Date();
-  const o={hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false};
-  const kr=document.getElementById("clkKR");
-  const jp=document.getElementById("clkJP");
-  if(kr)kr.textContent=n.toLocaleTimeString("ko-KR",{timeZone:"Asia/Seoul",...o});
-  if(jp)jp.textContent=n.toLocaleTimeString("ko-KR",{timeZone:"Asia/Tokyo",...o});
+function updateClocks() {
+  const n = new Date();
+  const o = { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false };
+  CONFIG.timezones.forEach((tz, i) => {
+    const el = document.getElementById(`clk${i}`);
+    if (el) el.textContent = n.toLocaleTimeString("ko-KR", { timeZone: tz.tz, ...o });
+  });
 }
 
 // ═══════════════════════════════════════════
-// RATE
+// RATE (C-3: error feedback)
 // ═══════════════════════════════════════════
-async function refreshRate(){
-  setState({rateLoading:true});
-  try{
-    const r=await fetch(RATE_API);const d=await r.json();
-    if(d.rates?.KRW){
-      const nr=d.rates.KRW;const t=new Date().toLocaleString("ko-KR")+" 기준";
-      save("hk-r",nr);save("hk-rt",t);
-      setState({rate:nr,rateTime:t,rateLoading:false});
+async function refreshRate() {
+  setState({ rateLoading: true });
+  try {
+    const r = await fetch(CONFIG.rateApi);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    if (d.rates?.KRW) {
+      const nr = d.rates.KRW;
+      const t = new Date().toLocaleString("ko-KR") + " 기준";
+      save(`${SK}-r`, nr); save(`${SK}-rt`, t);
+      setState({ rate: nr, rateTime: t, rateLoading: false });
+      showToast(`환율 업데이트: 1${CONFIG.currency.symbol} = ${CONFIG.currency.toSymbol}${nr.toFixed(2)}`, "💱");
       return;
     }
-  }catch(e){console.error(e)}
-  setState({rateLoading:false});
+    throw new Error("No KRW rate");
+  } catch (e) {
+    console.error(e);
+    setState({ rateLoading: false });
+    showToast("환율 업데이트 실패. 네트워크를 확인해주세요.", "⚠️", 3500);
+  }
+}
+
+// ═══════════════════════════════════════════
+// DARK MODE
+// ═══════════════════════════════════════════
+function toggleDarkMode() {
+  const dm = !state.darkMode;
+  document.documentElement.setAttribute('data-theme', dm ? 'dark' : 'light');
+  save(`${SK}-dm`, dm);
+  state.darkMode = dm;
+  showToast(dm ? "다크 모드 켜짐" : "라이트 모드 켜짐", dm ? "🌙" : "☀️");
+  render();
 }
 
 // ═══════════════════════════════════════════
 // ACTIONS
 // ═══════════════════════════════════════════
-function toggleCheck(di,ei){
-  const k=`${di}-${ei}`;
-  state.checked[k]=!state.checked[k];
-  save("hk-c",state.checked);
+function toggleCheck(di, ei) {
+  const k = `${di}-${ei}`;
+  state.checked[k] = !state.checked[k];
+  save(`${SK}-c`, state.checked);
   render();
 }
 
-function addSpending(){
-  const n=state.inputName.trim(),c=Number(state.inputCost);
-  if(!n||!c||c<=0)return;
-  const item={id:Date.now(),name:n,cost:c,day:state.inputDay};
+function addSpending() {
+  const n = state.inputName.trim(), c = Number(state.inputCost);
+  if (!n || !c || c <= 0) {
+    if (!n && !c) showToast("항목명과 금액을 입력해주세요.", "⚠️");
+    else if (!n) showToast("항목명을 입력해주세요.", "⚠️");
+    else showToast("올바른 금액을 입력해주세요.", "⚠️");
+    return;
+  }
+  const item = { id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2,8)}`, name: n, cost: c, day: state.inputDay };
   state.spending.push(item);
-  save("hk-s",state.spending);
-  setState({inputName:"",inputCost:""});
+  save(`${SK}-s`, state.spending);
+  setState({ inputName: "", inputCost: "" });
+  showToast(`Day ${state.inputDay}에 ${CONFIG.currency.symbol}${fmt(c)} 추가됨`, "✅");
 }
 
-function removeSpending(id){
-  if(state.confirmDelete!==id){setState({confirmDelete:id});return}
-  state.spending=state.spending.filter(x=>x.id!==id);
-  save("hk-s",state.spending);
-  setState({confirmDelete:null});
+// C-1: confirmDelete with auto-reset
+function removeSpending(id) {
+  if (state.confirmDelete !== id) {
+    if (state.confirmDeleteTimer) clearTimeout(state.confirmDeleteTimer);
+    const timer = setTimeout(() => {
+      if (state.confirmDelete === id) setState({ confirmDelete: null, confirmDeleteTimer: null });
+    }, 3000);
+    setState({ confirmDelete: id, confirmDeleteTimer: timer });
+    return;
+  }
+  if (state.confirmDeleteTimer) clearTimeout(state.confirmDeleteTimer);
+  const item = state.spending.find(x => x.id === id);
+  state.spending = state.spending.filter(x => x.id !== id);
+  save(`${SK}-s`, state.spending);
+  setState({ confirmDelete: null, confirmDeleteTimer: null });
+  if (item) showToast(`"${item.name}" 삭제됨`, "🗑️");
 }
 
-function saveBudget(){
-  const v=Number(state.budgetInput);
-  if(v>0){state.budget=v;save("hk-b",v)}
-  setState({editingBudget:false});
+function saveBudget() {
+  const v = Number(state.budgetInput);
+  if (v > 0) { state.budget = v; save(`${SK}-b`, v); showToast(`예산이 ${CONFIG.currency.symbol}${fmt(v)}으로 변경됨`, "✅"); }
+  setState({ editingBudget: false });
 }
 
-function spendByDay(dn){return state.spending.filter(x=>x.day===dn).reduce((s,x)=>s+x.cost,0)}
+function spendByDay(dn) { return state.spending.filter(x => x.day === dn).reduce((s, x) => s + x.cost, 0); }
 
-function getActual(di,ei){
-  const ev=DAYS[di].events[ei];
-  if(ev.c===0)return null;
-  const m=state.spending.find(x=>x.day===DAYS[di].day&&x.name===ev.a);
-  return m?m.cost:null;
+// C-2: improved matching (normalized + includes)
+function getActual(di, ei) {
+  const ev = DAYS[di].events[ei];
+  if (ev.c === 0) return null;
+  const normalize = s => s.replace(/\s+/g, '').toLowerCase();
+  const target = normalize(ev.a);
+  const m = state.spending.find(x => {
+    if (x.day !== DAYS[di].day) return false;
+    const n = normalize(x.name);
+    return n === target || target.includes(n) || n.includes(target);
+  });
+  return m ? m.cost : null;
+}
+
+// ═══════════════════════════════════════════
+// QUICK SPEND (Feature 2)
+// ═══════════════════════════════════════════
+function openQuickSpend(di, ei, ev) {
+  ev.stopPropagation();
+  const event = DAYS[di].events[ei];
+  state.quickSpend = { dayIdx: di, eventIdx: ei, eventName: event.a, plannedCost: event.c, dayNum: DAYS[di].day };
+  const modal = document.getElementById("quickModal");
+  const title = document.getElementById("qmTitle");
+  const sub = document.getElementById("qmSub");
+  const input = document.getElementById("qmInput");
+  title.textContent = `💸 ${event.a}`;
+  sub.textContent = `Day ${DAYS[di].day} · 계획 ${CONFIG.currency.symbol}${fmt(event.c)}`;
+  input.value = "";
+  modal.classList.add("active");
+  setTimeout(() => input.focus(), 300);
+}
+
+function closeQuickSpend() {
+  document.getElementById("quickModal").classList.remove("active");
+  state.quickSpend = null;
+}
+
+function submitQuickSpend() {
+  const input = document.getElementById("qmInput");
+  const cost = Number(input.value);
+  if (!cost || cost <= 0) { showToast("올바른 금액을 입력해주세요.", "⚠️"); return; }
+  const qs = state.quickSpend;
+  if (!qs) return;
+  // Remove existing entry for this event if any
+  const normalize = s => s.replace(/\s+/g, '').toLowerCase();
+  state.spending = state.spending.filter(x => !(x.day === qs.dayNum && normalize(x.name) === normalize(qs.eventName)));
+  const item = { id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2,8)}`, name: qs.eventName, cost, day: qs.dayNum };
+  state.spending.push(item);
+  save(`${SK}-s`, state.spending);
+  closeQuickSpend();
+  const diff = cost - qs.plannedCost;
+  const diffStr = diff === 0 ? "계획과 동일" : diff > 0 ? `+${CONFIG.currency.symbol}${fmt(diff)} over` : `-${CONFIG.currency.symbol}${fmt(Math.abs(diff))} under`;
+  showToast(`${qs.eventName}: ${CONFIG.currency.symbol}${fmt(cost)} (${diffStr})`, "✅");
+  render();
+}
+
+// ═══════════════════════════════════════════
+// BACKUP / RESTORE (Feature 1)
+// ═══════════════════════════════════════════
+function exportData() {
+  const data = {
+    version: 1,
+    exported: new Date().toISOString(),
+    checked: state.checked,
+    spending: state.spending,
+    budget: state.budget,
+    rate: state.rate,
+    rateTime: state.rateTime
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `hokkaido-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("백업 파일 다운로드 완료", "💾");
+}
+
+function triggerRestore() { document.getElementById("fileRestore").click(); }
+
+function handleRestore(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.checked) { state.checked = data.checked; save(`${SK}-c`, data.checked); }
+      if (data.spending) { state.spending = data.spending; save(`${SK}-s`, data.spending); }
+      if (data.budget) { state.budget = data.budget; save(`${SK}-b`, data.budget); }
+      if (data.rate) { state.rate = data.rate; save(`${SK}-r`, data.rate); }
+      if (data.rateTime) { state.rateTime = data.rateTime; save(`${SK}-rt`, data.rateTime); }
+      render();
+      showToast("백업 데이터 복원 완료!", "✅");
+    } catch (err) {
+      showToast("잘못된 백업 파일입니다.", "❌");
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = "";
+}
+
+// ═══════════════════════════════════════════
+// SWIPE NAVIGATION (Feature 3)
+// ═══════════════════════════════════════════
+let _swipeStartX = 0, _swipeStartY = 0, _swiping = false;
+function initSwipe() {
+  const app = document.getElementById("app");
+  app.addEventListener("touchstart", (e) => {
+    if (state.showBudget) return;
+    _swipeStartX = e.touches[0].clientX;
+    _swipeStartY = e.touches[0].clientY;
+    _swiping = true;
+  }, { passive: true });
+
+  app.addEventListener("touchend", (e) => {
+    if (!_swiping || state.showBudget) return;
+    _swiping = false;
+    const dx = e.changedTouches[0].clientX - _swipeStartX;
+    const dy = e.changedTouches[0].clientY - _swipeStartY;
+    if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.7) return;
+    if (dx < 0 && state.activeDay < DAYS.length - 1) {
+      setState({ activeDay: state.activeDay + 1 });
+      scrollActiveTab();
+    } else if (dx > 0 && state.activeDay > 0) {
+      setState({ activeDay: state.activeDay - 1 });
+      scrollActiveTab();
+    }
+  }, { passive: true });
+}
+
+// B-4: scroll active tab into view
+function scrollActiveTab() {
+  requestAnimationFrame(() => {
+    const tab = document.querySelector('.day-tab.active');
+    if (tab) tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  });
 }
 
 // ═══════════════════════════════════════════
 // RENDER
 // ═══════════════════════════════════════════
-function render(){
-  const app=document.getElementById("app");
-  if(state.showBudget){renderBudget(app);return}
+function render() {
+  const app = document.getElementById("app");
+  if (state.showBudget) { renderBudget(app); return; }
   renderMain(app);
   updateClocks();
 }
 
-function renderMain(app){
-  const d=DAYS[state.activeDay];
-  const o=OUTFITS[state.activeDay];
-  const isCouple=o.준영.top===o.정원.top&&o.준영.bottom===o.정원.bottom;
-  const dt=d.events.reduce((s,e)=>s+(e.c||0),0);
+function renderMain(app) {
+  const d = DAYS[state.activeDay];
+  const o = OUTFITS[state.activeDay];
+  const t0 = CONFIG.travelers[0], t1 = CONFIG.travelers[1];
+  const isCouple = o[t0].top === o[t1].top && o[t0].bottom === o[t1].bottom;
+  const dt = d.events.reduce((s, e) => s + (e.c || 0), 0);
+  const dmIcon = state.darkMode ? "☀️" : "🌙";
 
-  let h=`
+  let h = `
   <div class="header fade-in">
-    <div>
-      <div class="meta">2026.02.24 — 02.28</div>
-      <div class="title">홋카이도 여행 ❄️</div>
-      <div class="sub">준영 & 정원 · 4박 5일</div>
+    <div class="header-left">
+      <div class="meta">${CONFIG.tripPeriod}</div>
+      <div class="title">${CONFIG.tripTitle} ${CONFIG.tripEmoji}</div>
+      <div class="sub">${CONFIG.travelers.join(" & ")} · ${CONFIG.tripDuration}</div>
     </div>
-    <button class="btn-primary" onclick="setState({showBudget:true})">💰 가계부</button>
+    <div class="header-right">
+      <button class="btn-icon" onclick="toggleDarkMode()" aria-label="${state.darkMode ? '라이트 모드' : '다크 모드'}">${dmIcon}</button>
+      <button class="btn-primary" onclick="setState({showBudget:true})">💰 가계부</button>
+    </div>
   </div>
 
   <div class="clocks">
-    <div class="clock-card glass">
-      <div class="clock-label">🇰🇷 대한민국</div>
-      <div class="clock-time" id="clkKR">--:--:--</div>
-    </div>
-    <div class="clock-card glass">
-      <div class="clock-label">🇯🇵 삿포로</div>
-      <div class="clock-time" id="clkJP">--:--:--</div>
-    </div>
+    ${CONFIG.timezones.map((tz, i) => `
+      <div class="clock-card glass">
+        <div class="clock-label">${tz.label}</div>
+        <div class="clock-time" id="clk${i}">--:--:--</div>
+      </div>
+    `).join("")}
   </div>
 
-  <div class="day-tabs">
-    ${DAYS.map((x,i)=>`
-      <div class="day-tab ${state.activeDay===i?'active':''}" onclick="setState({activeDay:${i}})">
+  <div class="day-tabs" role="tablist" aria-label="여행 일정 탭">
+    ${DAYS.map((x, i) => `
+      <div class="day-tab ${state.activeDay === i ? 'active' : ''}" role="tab" tabindex="${state.activeDay === i ? '0' : '-1'}" aria-selected="${state.activeDay === i}" onclick="setState({activeDay:${i}});scrollActiveTab()" onkeydown="handleTabKey(event,${i})">
         <div class="day-tab-num">Day ${x.day}</div>
         <div class="day-tab-date">${x.date} ${x.wd}</div>
       </div>
@@ -419,17 +835,18 @@ function renderMain(app){
       <div class="day-sub">${d.date} (${d.wd}) · ${d.events.length}개 일정</div>
     </div>
     <div class="day-cost">
-      <div class="day-yen">¥${fmt(dt)}</div>
-      <div class="day-krw">₩${fmt(Math.round(dt*state.rate))}</div>
+      <div class="day-yen">${CONFIG.currency.symbol}${fmt(dt)}</div>
+      <div class="day-krw">${CONFIG.currency.toSymbol}${fmt(Math.round(dt * state.rate))}</div>
     </div>
   </div>
 
-  <div class="outfit-title">👗 OUTFIT ${isCouple?'<span class="couple-badge">💕 커플룩</span>':''}</div>
+  <div class="outfit-title">👗 OUTFIT ${isCouple ? '<span class="couple-badge">💕 커플룩</span>' : ''}</div>
   <div class="outfit-grid">
-    ${["준영","정원"].map(nm=>{
-      const p=o[nm];
+    ${CONFIG.travelers.map((nm, idx) => {
+      const p = o[nm];
+      const icon = idx === 0 ? "🧑" : "👩";
       return `<div class="glass outfit-person">
-        <div class="outfit-name">${nm==="준영"?"🧑 준영":"👩 정원"}</div>
+        <div class="outfit-name">${icon} ${nm}</div>
         <div class="outfit-items">
           <div class="outfit-item top">
             <div class="outfit-emoji">${p.te}</div>
@@ -447,76 +864,83 @@ function renderMain(app){
   </div>
 
   <div class="todo-title">📋 TO DO</div>
-  ${d.events.map((ev,i)=>{
-    const ck=!!state.checked[`${state.activeDay}-${i}`];
-    const ac=getActual(state.activeDay,i);
-    const diff=(ac!==null&&ev.c>0)?ac-ev.c:null;
-    return `<div class="todo-item ${ck?'checked':'unchecked'}" onclick="toggleCheck(${state.activeDay},${i})">
-      <div class="checkbox ${ck?'on':'off'}"></div>
+  ${d.events.map((ev, i) => {
+    const ck = !!state.checked[`${state.activeDay}-${i}`];
+    const ac = getActual(state.activeDay, i);
+    const diff = (ac !== null && ev.c > 0) ? ac - ev.c : null;
+    return `<div class="todo-item ${ck ? 'checked' : 'unchecked'}">
+      <div class="checkbox ${ck ? 'on' : 'off'}" role="checkbox" tabindex="0" aria-checked="${ck}" aria-label="${ev.a} 완료 표시" onclick="toggleCheck(${state.activeDay},${i})" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleCheck(${state.activeDay},${i})}"></div>
       <div class="todo-time">${ev.t}</div>
       <div class="todo-info">
         <div class="todo-activity">${ev.i} ${ev.a}</div>
         <div class="todo-location">📍 ${ev.l}</div>
       </div>
       <div class="todo-cost">
-        ${ev.c>0?`
-          <div class="cost-yen ${ev.e?'est':''}">¥${fmt(ev.c)}${ev.e?'<span class="cost-est">⚡</span>':''}</div>
-          ${diff!==null&&diff!==0?`<div class="cost-diff ${diff>0?'over':'under'}">${diff>0?`+¥${fmt(diff)} over`:`-¥${fmt(Math.abs(diff))} under`}</div>`:''}
-        `:`<div class="cost-free">무료</div>`}
+        ${ev.c > 0 ? `
+          <div>
+            <div class="cost-yen ${ev.e ? 'est' : ''}">${CONFIG.currency.symbol}${fmt(ev.c)}${ev.e ? '<span class="cost-est">⚡</span>' : ''}</div>
+            ${diff !== null && diff !== 0 ? `<div class="cost-diff ${diff > 0 ? 'over' : 'under'}">${diff > 0 ? `+${CONFIG.currency.symbol}${fmt(diff)} over` : `-${CONFIG.currency.symbol}${fmt(Math.abs(diff))} under`}</div>` : ''}
+          </div>
+          <button class="btn-quick-spend" onclick="openQuickSpend(${state.activeDay},${i},event)" aria-label="${ev.a} 실제 금액 입력">${CONFIG.currency.symbol}</button>
+        ` : `<div class="cost-free">무료</div>`}
       </div>
     </div>`;
   }).join("")}
   `;
-  app.innerHTML=h;
+  app.innerHTML = h;
   updateClocks();
 }
 
-function renderBudget(app){
-  const ts=state.spending.reduce((s,x)=>s+x.cost,0);
-  const rem=state.budget-ts;
-  const tp=DAYS.reduce((s,d)=>s+d.events.reduce((a,e)=>a+(e.c||0),0),0)+FURUKAWA;
-  const pct=state.budget>0?Math.round(ts/state.budget*100):0;
-  const pColor=pct>90?"#D44A4A":pct>70?"#E8A040":"#4A8ABF";
-  const pBg=pct>90?"linear-gradient(90deg,#E88,#D44)":pct>70?"linear-gradient(90deg,#F0C060,#E8A040)":"linear-gradient(90deg,#7BC0F5,#4A9CD9)";
+function renderBudget(app) {
+  const ts = state.spending.reduce((s, x) => s + x.cost, 0);
+  const rem = state.budget - ts;
+  const tp = DAYS.reduce((s, d) => s + d.events.reduce((a, e) => a + (e.c || 0), 0), 0) + FURUKAWA;
+  const pct = state.budget > 0 ? Math.round(ts / state.budget * 100) : 0;
+  const pColor = pct > 90 ? "var(--color-over)" : pct > 70 ? "var(--color-est)" : "var(--text-link)";
+  const pBg = pct > 90 ? "linear-gradient(90deg,#E88,#D44)" : pct > 70 ? "linear-gradient(90deg,#F0C060,#E8A040)" : `linear-gradient(90deg,var(--btn-gradient-1),var(--btn-gradient-2))`;
+  const dmIcon = state.darkMode ? "☀️" : "🌙";
 
-  let h=`
+  let h = `
   <div class="budget-header fade-in">
     <div class="budget-title">💰 여행 가계부</div>
-    <button class="btn-primary" onclick="setState({showBudget:false})">📅 일정으로</button>
+    <div class="budget-actions">
+      <button class="btn-icon" onclick="toggleDarkMode()" aria-label="${state.darkMode ? '라이트 모드' : '다크 모드'}">${dmIcon}</button>
+      <button class="btn-primary" onclick="setState({showBudget:false})">📅 일정으로</button>
+    </div>
   </div>
 
   <div class="glass rate-bar">
     <div style="display:flex;align-items:center;gap:8px">
       <span class="rate-icon">💱</span>
       <div>
-        <div class="rate-val">1¥ = ₩${state.rate.toFixed(2)}</div>
+        <div class="rate-val">1${CONFIG.currency.symbol} = ${CONFIG.currency.toSymbol}${state.rate.toFixed(2)}</div>
         <div class="rate-time">${state.rateTime}</div>
       </div>
     </div>
-    <button class="btn-secondary" onclick="refreshRate()" ${state.rateLoading?'disabled':''}>${state.rateLoading?'⏳':'🔄 새로고침'}</button>
+    <button class="btn-secondary" onclick="refreshRate()" ${state.rateLoading ? 'disabled' : ''} aria-label="환율 새로고침">${state.rateLoading ? '⏳' : '🔄 새로고침'}</button>
   </div>
 
   <div class="summary-grid">
-    <div class="summary-card" style="background:#E8F4FD;cursor:pointer" onclick="setState({editingBudget:true,budgetInput:String(state.budget)})">
-      <div class="summary-label" style="color:#4A8ABF">처음 금액</div>
-      ${state.editingBudget?`
+    <div class="summary-card" style="background:var(--card-blue-bg);cursor:pointer" onclick="setState({editingBudget:true,budgetInput:String(state.budget)})">
+      <div class="summary-label" style="color:var(--text-link)">처음 금액</div>
+      ${state.editingBudget ? `
         <input class="budget-edit-input" id="budgetInput" type="number" value="${state.budgetInput}" oninput="state.budgetInput=this.value" onkeydown="if(event.key==='Enter')saveBudget()">
         <button class="btn-confirm-budget" onclick="event.stopPropagation();saveBudget()">확인</button>
-      `:`
-        <div class="summary-val" style="color:#4A8ABF">¥${fmt(state.budget)}</div>
-        <div class="summary-sub" style="color:#4A8ABF">₩${fmt(Math.round(state.budget*state.rate))}</div>
+      ` : `
+        <div class="summary-val" style="color:var(--text-link)">${CONFIG.currency.symbol}${fmt(state.budget)}</div>
+        <div class="summary-sub" style="color:var(--text-link)">${CONFIG.currency.toSymbol}${fmt(Math.round(state.budget * state.rate))}</div>
         <div class="summary-edit">탭하여 수정</div>
       `}
     </div>
-    <div class="summary-card" style="background:#FFF0E0">
-      <div class="summary-label" style="color:#D4882A">사용 금액</div>
-      <div class="summary-val" style="color:#D4882A">¥${fmt(ts)}</div>
-      <div class="summary-sub" style="color:#D4882A">₩${fmt(Math.round(ts*state.rate))}</div>
+    <div class="summary-card" style="background:var(--card-orange-bg)">
+      <div class="summary-label" style="color:var(--color-orange)">사용 금액</div>
+      <div class="summary-val" style="color:var(--color-orange)">${CONFIG.currency.symbol}${fmt(ts)}</div>
+      <div class="summary-sub" style="color:var(--color-orange)">${CONFIG.currency.toSymbol}${fmt(Math.round(ts * state.rate))}</div>
     </div>
-    <div class="summary-card" style="background:${rem>=0?'#E8F5E9':'#FFEBEE'}">
-      <div class="summary-label" style="color:${rem>=0?'#4A9A5A':'#D44A4A'}">남은 금액</div>
-      <div class="summary-val" style="color:${rem>=0?'#4A9A5A':'#D44A4A'}">¥${fmt(Math.abs(rem))}</div>
-      <div class="summary-sub" style="color:${rem>=0?'#4A9A5A':'#D44A4A'}">${rem<0?'⚠️ 초과! ':''}₩${fmt(Math.round(Math.abs(rem)*state.rate))}</div>
+    <div class="summary-card" style="background:${rem >= 0 ? 'var(--card-green-bg)' : 'var(--card-red-bg)'}">
+      <div class="summary-label" style="color:${rem >= 0 ? 'var(--color-under)' : 'var(--color-over)'}">남은 금액</div>
+      <div class="summary-val" style="color:${rem >= 0 ? 'var(--color-under)' : 'var(--color-over)'}">${CONFIG.currency.symbol}${fmt(Math.abs(rem))}</div>
+      <div class="summary-sub" style="color:${rem >= 0 ? 'var(--color-under)' : 'var(--color-over)'}">${rem < 0 ? '⚠️ 초과! ' : ''}${CONFIG.currency.toSymbol}${fmt(Math.round(Math.abs(rem) * state.rate))}</div>
     </div>
   </div>
 
@@ -525,52 +949,52 @@ function renderBudget(app){
       <span class="progress-label">사용률</span>
       <span class="progress-pct" style="color:${pColor}">${pct}%</span>
     </div>
-    <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,pct)}%;background:${pBg}"></div></div>
-    <div class="progress-note">계획 총액 ¥${fmt(tp)} (₩${fmt(Math.round(tp*state.rate))}) · 후루카와 ¥${fmt(FURUKAWA)} 포함</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100, pct)}%;background:${pBg}"></div></div>
+    <div class="progress-note">계획 총액 ${CONFIG.currency.symbol}${fmt(tp)} (${CONFIG.currency.toSymbol}${fmt(Math.round(tp * state.rate))}) · 후루카와 ${CONFIG.currency.symbol}${fmt(FURUKAWA)} 포함</div>
   </div>
 
   <div class="glass input-section">
     <div class="input-title">💸 지출 기록</div>
     <div class="input-row">
       <div class="input-row-top">
-        <select class="input-select" onchange="state.inputDay=Number(this.value)">
-          ${DAYS.map(d=>`<option value="${d.day}" ${state.inputDay===d.day?'selected':''}>Day ${d.day}</option>`).join("")}
+        <select class="input-select" onchange="state.inputDay=Number(this.value)" aria-label="일정 선택">
+          ${DAYS.map(d => `<option value="${d.day}" ${state.inputDay === d.day ? 'selected' : ''}>Day ${d.day}</option>`).join("")}
         </select>
-        <input class="input-text" placeholder="항목명" value="${state.inputName}" oninput="state.inputName=this.value" onkeydown="if(event.key==='Enter')document.getElementById('cInput')?.focus()">
+        <input class="input-text" placeholder="항목명" value="${escapeHtml(state.inputName)}" oninput="state.inputName=this.value" onkeydown="if(event.key==='Enter')document.getElementById('cInput')?.focus()" aria-label="항목명">
       </div>
       <div class="input-row-bottom">
-        <input class="input-number" id="cInput" placeholder="¥ 금액" type="number" value="${state.inputCost}" oninput="state.inputCost=this.value" onkeydown="if(event.key==='Enter')addSpending()">
+        <input class="input-number" id="cInput" placeholder="${CONFIG.currency.symbol} 금액" type="number" value="${escapeHtml(String(state.inputCost))}" oninput="state.inputCost=this.value" onkeydown="if(event.key==='Enter')addSpending()" aria-label="금액">
         <button class="btn-add" onclick="addSpending()">+ 추가</button>
       </div>
     </div>
-    <div class="input-hint">항목명이 TODO 일정명과 같으면 자동 over/under 표시</div>
+    <div class="input-hint">💡 TODO 항목 옆 ${CONFIG.currency.symbol} 버튼으로 빠른 입력 가능!</div>
   </div>
 
-  <div style="font-size:13px;font-weight:700;color:#2C5F8A;margin-bottom:10px">📊 일별 내역</div>
-  ${DAYS.map(d=>{
-    const pl=d.events.reduce((s,e)=>s+(e.c||0),0);
-    const ac=spendByDay(d.day);
-    const items=state.spending.filter(x=>x.day===d.day);
-    const df=ac-pl;
+  <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:10px">📊 일별 내역</div>
+  ${DAYS.map(d => {
+    const pl = d.events.reduce((s, e) => s + (e.c || 0), 0);
+    const ac = spendByDay(d.day);
+    const items = state.spending.filter(x => x.day === d.day);
+    const df = ac - pl;
     return `<div class="glass day-budget">
-      <div class="day-budget-top" style="margin-bottom:${items.length?'8':'0'}px">
+      <div class="day-budget-top" style="margin-bottom:${items.length ? '8' : '0'}px">
         <div>
           <span class="day-budget-label">Day ${d.day}</span>
           <span class="day-budget-title">${d.title}</span>
         </div>
         <div style="text-align:right">
-          <div class="day-budget-planned">계획 ¥${fmt(pl)}</div>
-          ${ac>0?`<div class="day-budget-actual">실제 ¥${fmt(ac)}</div>`:''}
-          ${ac>0&&df!==0?`<div class="day-budget-diff" style="color:${df>0?'#E05555':'#4A9A5A'}">${df>0?`▲ ¥${fmt(df)} over`:`▼ ¥${fmt(Math.abs(df))} under`}</div>`:''}
+          <div class="day-budget-planned">계획 ${CONFIG.currency.symbol}${fmt(pl)}</div>
+          ${ac > 0 ? `<div class="day-budget-actual">실제 ${CONFIG.currency.symbol}${fmt(ac)}</div>` : ''}
+          ${ac > 0 && df !== 0 ? `<div class="day-budget-diff" style="color:${df > 0 ? 'var(--color-over)' : 'var(--color-under)'}">${df > 0 ? `▲ ${CONFIG.currency.symbol}${fmt(df)} over` : `▼ ${CONFIG.currency.symbol}${fmt(Math.abs(df))} under`}</div>` : ''}
         </div>
       </div>
-      ${items.map(it=>`
+      ${items.map(it => `
         <div class="spending-item">
-          <span class="spending-name">${it.name}</span>
+          <span class="spending-name">${escapeHtml(it.name)}</span>
           <div style="display:flex;align-items:center;gap:6px">
-            <span class="spending-cost">¥${fmt(it.cost)}</span>
-            <span class="spending-krw">₩${fmt(Math.round(it.cost*state.rate))}</span>
-            <button class="btn-delete ${state.confirmDelete===it.id?'confirm':'normal'}" onclick="event.stopPropagation();removeSpending(${it.id})">${state.confirmDelete===it.id?'확인?':'✕'}</button>
+            <span class="spending-cost">${CONFIG.currency.symbol}${fmt(it.cost)}</span>
+            <span class="spending-krw">${CONFIG.currency.toSymbol}${fmt(Math.round(it.cost * state.rate))}</span>
+            <button class="btn-delete ${state.confirmDelete === it.id ? 'confirm' : 'normal'}" onclick="event.stopPropagation();removeSpending('${it.id}')" aria-label="${it.name} 삭제">${state.confirmDelete === it.id ? '확인?' : '✕'}</button>
           </div>
         </div>
       `).join("")}
@@ -580,44 +1004,97 @@ function renderBudget(app){
   <div class="furukawa-card">
     <div>
       <div class="furukawa-label">🏯 오타루 후루카와</div>
-      <div class="furukawa-sub">숙박비 (전세탕 별도 ¥2,500/회)</div>
+      <div class="furukawa-sub">숙박비 (전세탕 별도 ${CONFIG.currency.symbol}2,500/회)</div>
     </div>
     <div style="text-align:right">
-      <div style="font-size:14px;font-weight:700;color:#2C5F8A">¥${fmt(FURUKAWA)}</div>
-      <div style="font-size:10px;color:#8BAFC8">₩${fmt(Math.round(FURUKAWA*state.rate))}</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text-primary)">${CONFIG.currency.symbol}${fmt(FURUKAWA)}</div>
+      <div style="font-size:10px;color:var(--text-secondary)">${CONFIG.currency.toSymbol}${fmt(Math.round(FURUKAWA * state.rate))}</div>
+    </div>
+  </div>
+
+  <div class="glass backup-section">
+    <div class="backup-title">💾 데이터 백업 / 복원</div>
+    <div class="backup-btns">
+      <button class="btn-secondary" onclick="exportData()">📥 백업 다운로드</button>
+      <button class="btn-secondary" onclick="triggerRestore()">📤 백업 복원</button>
     </div>
   </div>
   `;
-  app.innerHTML=h;
-  if(state.editingBudget){
-    const inp=document.getElementById("budgetInput");
-    if(inp){inp.focus();inp.select()}
+  app.innerHTML = h;
+  if (state.editingBudget) {
+    const inp = document.getElementById("budgetInput");
+    if (inp) { inp.focus(); inp.select(); }
   }
 }
+
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// B-5: keyboard navigation for tabs
+function handleTabKey(event, index) {
+  let newIndex = index;
+  if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+    event.preventDefault();
+    newIndex = Math.min(index + 1, DAYS.length - 1);
+  } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+    event.preventDefault();
+    newIndex = Math.max(index - 1, 0);
+  } else if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    setState({ activeDay: index });
+    scrollActiveTab();
+    return;
+  } else {
+    return;
+  }
+  setState({ activeDay: newIndex });
+  scrollActiveTab();
+  requestAnimationFrame(() => {
+    const tabs = document.querySelectorAll('.day-tab');
+    if (tabs[newIndex]) tabs[newIndex].focus();
+  });
+}
+
+// Close modal on overlay click
+document.getElementById("quickModal").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) closeQuickSpend();
+});
+
+// Enter key for quick spend modal
+document.getElementById("qmInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") submitQuickSpend();
+});
 
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
 initSnow();
+initSwipe();
 render();
-setInterval(updateClocks,1000);
+setInterval(updateClocks, 1000);
 refreshRate();
 
 // PWA install prompt
 let deferredPrompt;
-window.addEventListener('beforeinstallprompt',e=>{
+window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
-  deferredPrompt=e;
+  deferredPrompt = e;
   showInstallBanner();
 });
 
-function showInstallBanner(){
-  if(document.querySelector('.install-banner'))return;
-  const b=document.createElement('div');
-  b.className='install-banner';
-  b.innerHTML=`
+function showInstallBanner() {
+  if (document.querySelector('.install-banner')) return;
+  const b = document.createElement('div');
+  b.className = 'install-banner';
+  b.innerHTML = `
     <div>
-      <div class="install-text">❄️ 홈 화면에 추가하시겠어요?</div>
+      <div class="install-text">${CONFIG.tripEmoji} 홈 화면에 추가하시겠어요?</div>
       <div class="install-sub">앱처럼 바로 실행할 수 있어요</div>
     </div>
     <div style="display:flex;gap:8px;align-items:center">
@@ -628,62 +1105,75 @@ function showInstallBanner(){
   document.body.appendChild(b);
 }
 
-async function installApp(){
-  if(!deferredPrompt)return;
+async function installApp() {
+  if (!deferredPrompt) return;
   deferredPrompt.prompt();
-  const{outcome}=await deferredPrompt.userChoice;
-  deferredPrompt=null;
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
   document.querySelector('.install-banner')?.remove();
 }
 </script>
 
 <!-- PWA Manifest (inline) -->
 <script>
-const manifest={
-  name:"홋카이도 여행 2026",
-  short_name:"홋카이도",
-  description:"준영 & 정원의 홋카이도 여행",
-  start_url:"./",
-  display:"standalone",
-  background_color:"#DFF0FB",
-  theme_color:"#DFF0FB",
-  orientation:"portrait",
-  icons:[{
-    src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%23DFF0FB' width='512' height='512' rx='100'/><text x='256' y='300' text-anchor='middle' font-size='280'>❄️</text></svg>",
-    sizes:"512x512",
-    type:"image/svg+xml",
-    purpose:"any maskable"
+const manifest = {
+  name: "홋카이도 여행 2026",
+  short_name: "홋카이도",
+  description: `${CONFIG.travelers.join(" & ")}의 홋카이도 여행`,
+  start_url: "./",
+  display: "standalone",
+  background_color: "#DFF0FB",
+  theme_color: "#DFF0FB",
+  orientation: "portrait",
+  icons: [{
+    src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%23DFF0FB' width='512' height='512' rx='100'/><text x='256' y='300' text-anchor='middle' font-size='280'>❄️</text></svg>",
+    sizes: "512x512",
+    type: "image/svg+xml",
+    purpose: "any maskable"
   }]
 };
-const blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
-const link=document.createElement('link');
-link.rel='manifest';
-link.href=URL.createObjectURL(blob);
+const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+const link = document.createElement('link');
+link.rel = 'manifest';
+link.href = URL.createObjectURL(blob);
 document.head.appendChild(link);
 </script>
 
-<!-- Service Worker (inline registration) -->
+<!-- Service Worker (C-4: exclude API from cache) -->
 <script>
-if('serviceWorker' in navigator){
-  const swCode=`
-    const CACHE='hk-v1';
-    self.addEventListener('install',e=>{self.skipWaiting()});
-    self.addEventListener('activate',e=>{e.waitUntil(clients.claim())});
-    self.addEventListener('fetch',e=>{
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    const CACHE = 'hk-v2';
+    const API_PATTERNS = ['api.com', 'er-api.com', 'api.exchangerate'];
+    self.addEventListener('install', e => { self.skipWaiting() });
+    self.addEventListener('activate', e => {
+      e.waitUntil(
+        caches.keys().then(keys => Promise.all(
+          keys.filter(k => k !== CACHE).map(k => caches.delete(k))
+        )).then(() => clients.claim())
+      );
+    });
+    self.addEventListener('fetch', e => {
+      const url = e.request.url;
+      const isApi = API_PATTERNS.some(p => url.includes(p));
+      if (isApi) {
+        e.respondWith(fetch(e.request).catch(() => new Response('{"error":"offline"}', {headers:{'Content-Type':'application/json'}})));
+        return;
+      }
       e.respondWith(
-        caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
-          if(res.status===200){
-            const c=res.clone();
-            caches.open(CACHE).then(cache=>cache.put(e.request,c));
+        caches.match(e.request).then(r => r || fetch(e.request).then(res => {
+          if (res.status === 200) {
+            const c = res.clone();
+            caches.open(CACHE).then(cache => cache.put(e.request, c));
           }
           return res;
-        }).catch(()=>caches.match(e.request)))
+        }).catch(() => caches.match(e.request)))
       );
     });
   `;
-  const swBlob=new Blob([swCode],{type:'application/javascript'});
-  const swUrl=URL.createObjectURL(swBlob);
-  navigator.serviceWorker.register(swUrl).catch(()=>{});
+  const swBlob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swUrl).catch(() => {});
 }
 </script>
 </body>
