@@ -12,7 +12,7 @@
 <title>홋카이도 여행 2026 ❄️</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❄️</text></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23DFF0FB' width='100' height='100' rx='20'/><text x='50' y='58' text-anchor='middle' font-size='55'>❄️</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=optional" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════
    CSS VARIABLES — THEME SYSTEM
@@ -41,8 +41,8 @@
   --card-orange-bg: #FFF0E0;
   --card-green-bg: #E8F5E9;
   --card-red-bg: #FFEBEE;
-  --card-furukawa-bg: rgba(129,199,132,.1);
-  --card-furukawa-border: rgba(129,199,132,.25);
+  --card-special-bg: rgba(129,199,132,.1);
+  --card-special-border: rgba(129,199,132,.25);
   --outfit-top-bg1: #E8F4FD;
   --outfit-top-bg2: #D4ECFC;
   --outfit-bottom-bg1: #F0E6F6;
@@ -102,8 +102,8 @@
   --card-orange-bg: rgba(120,80,30,.25);
   --card-green-bg: rgba(40,100,50,.2);
   --card-red-bg: rgba(120,40,40,.2);
-  --card-furukawa-bg: rgba(60,130,70,.15);
-  --card-furukawa-border: rgba(60,130,70,.25);
+  --card-special-bg: rgba(60,130,70,.15);
+  --card-special-border: rgba(60,130,70,.25);
   --outfit-top-bg1: rgba(40,80,130,.3);
   --outfit-top-bg2: rgba(35,70,115,.4);
   --outfit-bottom-bg1: rgba(80,50,110,.3);
@@ -146,7 +146,7 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 html,body{overscroll-behavior:none;overflow-x:hidden}
 body{
-  font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','Segoe UI',sans-serif;
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','Segoe UI','Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;
   min-height:100vh;min-height:100dvh;
   background:linear-gradient(180deg,var(--bg-gradient-1) 0%,var(--bg-gradient-2) 40%,var(--bg-gradient-3) 100%);
   color:var(--text-primary);
@@ -298,9 +298,9 @@ input[type=number]{-moz-appearance:textfield}
 .btn-delete{border:none;border-radius:6px;padding:2px 6px;font-size:10px;cursor:pointer;font-weight:600;margin-left:6px;transition:all .15s;touch-action:manipulation}
 .btn-delete.normal{background:var(--del-normal-bg);color:var(--del-normal-text)}
 .btn-delete.confirm{background:var(--del-confirm-bg);color:#fff}
-.furukawa-card{background:var(--card-furukawa-bg);border-radius:14px;padding:12px 16px;margin-top:4px;border:1px solid var(--card-furukawa-border);display:flex;justify-content:space-between;align-items:center;transition:background .3s,border-color .3s}
-.furukawa-label{font-size:13px;font-weight:700;color:var(--color-under)}
-.furukawa-sub{font-size:10px;color:var(--text-secondary)}
+.fixed-expense-card{background:var(--card-special-bg);border-radius:14px;padding:12px 16px;margin-top:4px;border:1px solid var(--card-special-border);display:flex;justify-content:space-between;align-items:center;transition:background .3s,border-color .3s}
+.fixed-expense-label{font-size:13px;font-weight:700;color:var(--color-under)}
+.fixed-expense-sub{font-size:10px;color:var(--text-secondary)}
 .budget-edit-input{width:100%;font-size:13px;font-weight:700;text-align:center;border:1px solid var(--checkbox-border);border-radius:8px;padding:4px;outline:none;background:var(--input-bg);color:var(--text-primary)}
 .btn-confirm-budget{margin-top:4px;font-size:10px;background:var(--btn-gradient-2);color:#fff;border:none;border-radius:6px;padding:3px 10px;cursor:pointer;font-weight:600}
 
@@ -415,6 +415,9 @@ const CONFIG = {
   timezones: [
     { label: "🇰🇷 대한민국", tz: "Asia/Seoul" },
     { label: "🇯🇵 삿포로", tz: "Asia/Tokyo" }
+  ],
+  fixedExpenses: [
+    { name: "오타루 후루카와", emoji: "🏯", cost: 41000, desc: "숙박비 (전세탕 별도 ¥2,500/회)" }
   ]
 };
 
@@ -483,7 +486,7 @@ const DAYS = [
   ]}
 ];
 
-const FURUKAWA = 41000;
+const FIXED_TOTAL = CONFIG.fixedExpenses.reduce((s, x) => s + x.cost, 0);
 
 // ═══════════════════════════════════════════
 // STATE
@@ -514,7 +517,10 @@ let state = {
 };
 
 // Apply saved theme immediately
-if (state.darkMode) document.documentElement.setAttribute('data-theme', 'dark');
+if (state.darkMode) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#0F1923');
+}
 
 let _renderQueued = false;
 function setState(patch) {
@@ -532,7 +538,14 @@ function showToast(msg, icon = "ℹ️", duration = 2500) {
   const container = document.getElementById("toastContainer");
   const toast = document.createElement("div");
   toast.className = "toast";
-  toast.innerHTML = `<span class="toast-icon">${icon}</span><span class="toast-msg">${msg}</span>`;
+  const iconSpan = document.createElement("span");
+  iconSpan.className = "toast-icon";
+  iconSpan.textContent = icon;
+  const msgSpan = document.createElement("span");
+  msgSpan.className = "toast-msg";
+  msgSpan.textContent = msg;
+  toast.appendChild(iconSpan);
+  toast.appendChild(msgSpan);
   container.appendChild(toast);
   setTimeout(() => {
     toast.classList.add("out");
@@ -546,6 +559,7 @@ function showToast(msg, icon = "ℹ️", duration = 2500) {
 function initSnow() {
   const w = document.getElementById("snowWrap");
   let keyframes = "";
+  window._snowRandom = [];
   for (let i = 0; i < 18; i++) {
     const f = document.createElement("div");
     f.className = "snowflake";
@@ -553,15 +567,26 @@ function initSnow() {
     const d = 7 + Math.random() * 8;
     const dl = Math.random() * 10;
     const l = Math.random() * 100;
-    const o = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--snow-opacity-base')) + Math.random() * 0.2;
+    const rnd = Math.random() * 0.2;
+    window._snowRandom.push(rnd);
+    const baseOp = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--snow-opacity-base'));
     const dr = (Math.random() - .5) * 30;
-    f.style.cssText = `left:${l}%;width:${s}px;height:${s}px;opacity:${o};animation:sf${i} ${d}s linear ${dl}s infinite`;
+    f.style.cssText = `left:${l}%;width:${s}px;height:${s}px;opacity:${baseOp + rnd};animation:sf${i} ${d}s linear ${dl}s infinite`;
     w.appendChild(f);
     keyframes += `@keyframes sf${i}{0%{transform:translateY(-10px)translateX(0)}50%{transform:translateY(50vh)translateX(${dr}px)}100%{transform:translateY(105vh)translateX(0)}}`;
   }
   const style = document.createElement("style");
   style.textContent = keyframes;
   document.head.appendChild(style);
+}
+
+function updateSnowOpacity() {
+  const flakes = document.querySelectorAll(".snowflake");
+  const baseOp = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--snow-opacity-base'));
+  flakes.forEach((f, i) => {
+    const rnd = (window._snowRandom && window._snowRandom[i]) || 0;
+    f.style.opacity = baseOp + rnd;
+  });
 }
 
 // ═══════════════════════════════════════════
@@ -607,9 +632,13 @@ async function refreshRate() {
 function toggleDarkMode() {
   const dm = !state.darkMode;
   document.documentElement.setAttribute('data-theme', dm ? 'dark' : 'light');
+  // C-4: Update theme-color meta tag
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dm ? '#0F1923' : '#DFF0FB');
   save(`${SK}-dm`, dm);
   state.darkMode = dm;
   showToast(dm ? "다크 모드 켜짐" : "라이트 모드 켜짐", dm ? "🌙" : "☀️");
+  // B-3: Update snowflake opacity for new theme
+  updateSnowOpacity();
   render();
 }
 
@@ -657,25 +686,31 @@ function removeSpending(id) {
 }
 
 function saveBudget() {
+  if (!state.editingBudget) return;
   const v = Number(state.budgetInput);
   if (v > 0) { state.budget = v; save(`${SK}-b`, v); showToast(`예산이 ${CONFIG.currency.symbol}${fmt(v)}으로 변경됨`, "✅"); }
   setState({ editingBudget: false });
 }
 
+function cancelBudgetEdit() {
+  setState({ editingBudget: false, budgetInput: "" });
+}
+
 function spendByDay(dn) { return state.spending.filter(x => x.day === dn).reduce((s, x) => s + x.cost, 0); }
 
-// C-2: improved matching (normalized + includes)
+// C-1 fix: sum ALL matching spending items (filter+reduce instead of find)
 function getActual(di, ei) {
   const ev = DAYS[di].events[ei];
   if (ev.c === 0) return null;
   const normalize = s => s.replace(/\s+/g, '').toLowerCase();
   const target = normalize(ev.a);
-  const m = state.spending.find(x => {
+  const matches = state.spending.filter(x => {
     if (x.day !== DAYS[di].day) return false;
     const n = normalize(x.name);
     return n === target || target.includes(n) || n.includes(target);
   });
-  return m ? m.cost : null;
+  if (matches.length === 0) return null;
+  return matches.reduce((sum, x) => sum + x.cost, 0);
 }
 
 // ═══════════════════════════════════════════
@@ -693,11 +728,13 @@ function openQuickSpend(di, ei, ev) {
   sub.textContent = `Day ${DAYS[di].day} · 계획 ${CONFIG.currency.symbol}${fmt(event.c)}`;
   input.value = "";
   modal.classList.add("active");
+  document.body.style.overflow = "hidden";
   setTimeout(() => input.focus(), 300);
 }
 
 function closeQuickSpend() {
   document.getElementById("quickModal").classList.remove("active");
+  document.body.style.overflow = "";
   state.quickSpend = null;
 }
 
@@ -752,11 +789,24 @@ function handleRestore(event) {
   reader.onload = (e) => {
     try {
       const data = JSON.parse(e.target.result);
-      if (data.checked) { state.checked = data.checked; save(`${SK}-c`, data.checked); }
-      if (data.spending) { state.spending = data.spending; save(`${SK}-s`, data.spending); }
-      if (data.budget) { state.budget = data.budget; save(`${SK}-b`, data.budget); }
-      if (data.rate) { state.rate = data.rate; save(`${SK}-r`, data.rate); }
-      if (data.rateTime) { state.rateTime = data.rateTime; save(`${SK}-rt`, data.rateTime); }
+      // C-2: Validate types before applying
+      const valid = {};
+      if (data.checked && typeof data.checked === 'object' && !Array.isArray(data.checked)) valid.checked = data.checked;
+      if (Array.isArray(data.spending) && data.spending.every(x => typeof x === 'object' && typeof x.cost === 'number' && typeof x.name === 'string')) valid.spending = data.spending;
+      if (typeof data.budget === 'number' && data.budget > 0) valid.budget = data.budget;
+      if (typeof data.rate === 'number' && data.rate > 0) valid.rate = data.rate;
+      if (typeof data.rateTime === 'string') valid.rateTime = data.rateTime;
+
+      if (Object.keys(valid).length === 0) {
+        showToast("복원할 수 있는 유효한 데이터가 없습니다.", "⚠️");
+        return;
+      }
+
+      if (valid.checked) { state.checked = valid.checked; save(`${SK}-c`, valid.checked); }
+      if (valid.spending) { state.spending = valid.spending; save(`${SK}-s`, valid.spending); }
+      if (valid.budget) { state.budget = valid.budget; save(`${SK}-b`, valid.budget); }
+      if (valid.rate) { state.rate = valid.rate; save(`${SK}-r`, valid.rate); }
+      if (valid.rateTime) { state.rateTime = valid.rateTime; save(`${SK}-rt`, valid.rateTime); }
       render();
       showToast("백업 데이터 복원 완료!", "✅");
     } catch (err) {
@@ -767,9 +817,6 @@ function handleRestore(event) {
   event.target.value = "";
 }
 
-// ═══════════════════════════════════════════
-// SWIPE NAVIGATION (Feature 3)
-// ═══════════════════════════════════════════
 // ═══════════════════════════════════════════
 // SWIPE NAVIGATION (with drag animation)
 // ═══════════════════════════════════════════
@@ -1038,7 +1085,7 @@ function renderMain(app) {
 function renderBudget(app) {
   const ts = state.spending.reduce((s, x) => s + x.cost, 0);
   const rem = state.budget - ts;
-  const tp = DAYS.reduce((s, d) => s + d.events.reduce((a, e) => a + (e.c || 0), 0), 0) + FURUKAWA;
+  const tp = DAYS.reduce((s, d) => s + d.events.reduce((a, e) => a + (e.c || 0), 0), 0) + FIXED_TOTAL;
   const pct = state.budget > 0 ? Math.round(ts / state.budget * 100) : 0;
   const pColor = pct > 90 ? "var(--color-over)" : pct > 70 ? "var(--color-est)" : "var(--text-link)";
   const pBg = pct > 90 ? "linear-gradient(90deg,#E88,#D44)" : pct > 70 ? "linear-gradient(90deg,#F0C060,#E8A040)" : `linear-gradient(90deg,var(--btn-gradient-1),var(--btn-gradient-2))`;
@@ -1065,11 +1112,14 @@ function renderBudget(app) {
   </div>
 
   <div class="summary-grid">
-    <div class="summary-card" style="background:var(--card-blue-bg);cursor:pointer" onclick="setState({editingBudget:true,budgetInput:String(state.budget)})">
+    <div class="summary-card" style="background:var(--card-blue-bg);cursor:pointer" onclick="if(!state.editingBudget)setState({editingBudget:true,budgetInput:String(state.budget)})">
       <div class="summary-label" style="color:var(--text-link)">처음 금액</div>
       ${state.editingBudget ? `
-        <input class="budget-edit-input" id="budgetInput" type="number" value="${state.budgetInput}" oninput="state.budgetInput=this.value" onkeydown="if(event.key==='Enter')saveBudget()">
-        <button class="btn-confirm-budget" onclick="event.stopPropagation();saveBudget()">확인</button>
+        <input class="budget-edit-input" id="budgetInput" type="number" value="${state.budgetInput}" oninput="state.budgetInput=this.value" onkeydown="if(event.key==='Enter')saveBudget();if(event.key==='Escape')cancelBudgetEdit()" onblur="setTimeout(saveBudget,150)">
+        <div style="display:flex;gap:4px;margin-top:4px;justify-content:center">
+          <button class="btn-confirm-budget" onclick="event.stopPropagation();saveBudget()">확인</button>
+          <button class="btn-confirm-budget" style="background:var(--text-muted)" onclick="event.stopPropagation();cancelBudgetEdit()">취소</button>
+        </div>
       ` : `
         <div class="summary-val" style="color:var(--text-link)">${CONFIG.currency.symbol}${fmt(state.budget)}</div>
         <div class="summary-sub" style="color:var(--text-link)">${CONFIG.currency.toSymbol}${fmt(Math.round(state.budget * state.rate))}</div>
@@ -1094,7 +1144,7 @@ function renderBudget(app) {
       <span class="progress-pct" style="color:${pColor}">${pct}%</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100, pct)}%;background:${pBg}"></div></div>
-    <div class="progress-note">계획 총액 ${CONFIG.currency.symbol}${fmt(tp)} (${CONFIG.currency.toSymbol}${fmt(Math.round(tp * state.rate))}) · 후루카와 ${CONFIG.currency.symbol}${fmt(FURUKAWA)} 포함</div>
+    <div class="progress-note">계획 총액 ${CONFIG.currency.symbol}${fmt(tp)} (${CONFIG.currency.toSymbol}${fmt(Math.round(tp * state.rate))}) · ${CONFIG.fixedExpenses.map(fe => `${fe.name} ${CONFIG.currency.symbol}${fmt(fe.cost)}`).join(' + ')} 포함</div>
   </div>
 
   <div class="glass input-section">
@@ -1145,16 +1195,18 @@ function renderBudget(app) {
     </div>`;
   }).join("")}
 
-  <div class="furukawa-card">
+  ${CONFIG.fixedExpenses.map(fe => `
+  <div class="fixed-expense-card">
     <div>
-      <div class="furukawa-label">🏯 오타루 후루카와</div>
-      <div class="furukawa-sub">숙박비 (전세탕 별도 ${CONFIG.currency.symbol}2,500/회)</div>
+      <div class="fixed-expense-label">${fe.emoji} ${fe.name}</div>
+      <div class="fixed-expense-sub">${fe.desc}</div>
     </div>
     <div style="text-align:right">
-      <div style="font-size:14px;font-weight:700;color:var(--text-primary)">${CONFIG.currency.symbol}${fmt(FURUKAWA)}</div>
-      <div style="font-size:10px;color:var(--text-secondary)">${CONFIG.currency.toSymbol}${fmt(Math.round(FURUKAWA * state.rate))}</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text-primary)">${CONFIG.currency.symbol}${fmt(fe.cost)}</div>
+      <div style="font-size:10px;color:var(--text-secondary)">${CONFIG.currency.toSymbol}${fmt(Math.round(fe.cost * state.rate))}</div>
     </div>
   </div>
+  `).join("")}
 
   <div class="glass backup-section">
     <div class="backup-title">💾 데이터 백업 / 복원</div>
