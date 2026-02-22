@@ -21,7 +21,7 @@ body{
   min-height:100vh;min-height:100dvh;
   background:linear-gradient(180deg,#DFF0FB 0%,#EDE7F3 40%,#F8F5FA 100%);
   color:#2C5F8A;
-  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  padding:0;
   -webkit-font-smoothing:antialiased;
 }
 ::-webkit-scrollbar{display:none}
@@ -35,7 +35,7 @@ input[type=number]{-moz-appearance:textfield}
 .snowflake{position:absolute;top:-10px;border-radius:50%;background:#fff}
 
 /* Layout */
-.app{position:relative;z-index:1;padding:max(env(safe-area-inset-top,16px),16px) 16px calc(env(safe-area-inset-bottom,20px) + 20px);max-width:500px;margin:0 auto;min-height:100vh;min-height:100dvh}
+.app{position:relative;z-index:1;padding:16px 16px calc(env(safe-area-inset-bottom,20px) + 20px);padding-top:max(env(safe-area-inset-top,16px),16px);max-width:500px;margin:0 auto;min-height:100vh;min-height:100dvh}
 
 /* Glass Card */
 .glass{background:rgba(255,255,255,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;border:1px solid rgba(135,206,250,.3)}
@@ -135,10 +135,12 @@ input[type=number]{-moz-appearance:textfield}
 .progress-note{font-size:9px;color:#A8C0D4;margin-top:4px;text-align:center}
 .input-section{padding:16px;margin-bottom:16px}
 .input-title{font-size:14px;font-weight:700;color:#2C5F8A;margin-bottom:12px}
-.input-row{display:flex;gap:6px;margin-bottom:4px}
+.input-row{display:flex;gap:6px;margin-bottom:4px;flex-wrap:wrap}
+.input-row-top{display:flex;gap:6px;width:100%;margin-bottom:6px}
+.input-row-bottom{display:flex;gap:6px;width:100%}
 .input-select{width:72px;padding:10px 4px;border-radius:10px;border:1px solid #D4E8F5;font-size:12px;outline:none;background:#fff;color:#4A8ABF;font-weight:600}
 .input-text{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #D4E8F5;font-size:13px;outline:none;background:#fff}
-.input-number{width:80px;padding:10px 12px;border-radius:10px;border:1px solid #D4E8F5;font-size:13px;outline:none;background:#fff}
+.input-number{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #D4E8F5;font-size:13px;outline:none;background:#fff}
 .input-hint{font-size:10px;color:#A8C0D4;text-align:center;margin-top:4px}
 .btn-add{background:linear-gradient(135deg,#7BC0F5,#4A9CD9);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0;touch-action:manipulation}
 .day-budget{padding:12px 14px;margin-bottom:8px}
@@ -530,12 +532,16 @@ function renderBudget(app){
   <div class="glass input-section">
     <div class="input-title">💸 지출 기록</div>
     <div class="input-row">
-      <select class="input-select" onchange="state.inputDay=Number(this.value)">
-        ${DAYS.map(d=>`<option value="${d.day}" ${state.inputDay===d.day?'selected':''}>Day ${d.day}</option>`).join("")}
-      </select>
-      <input class="input-text" placeholder="항목명" value="${state.inputName}" oninput="state.inputName=this.value" onkeydown="if(event.key==='Enter')document.getElementById('cInput')?.focus()">
-      <input class="input-number" id="cInput" placeholder="¥ 금액" type="number" value="${state.inputCost}" oninput="state.inputCost=this.value" onkeydown="if(event.key==='Enter')addSpending()">
-      <button class="btn-add" onclick="addSpending()">+</button>
+      <div class="input-row-top">
+        <select class="input-select" onchange="state.inputDay=Number(this.value)">
+          ${DAYS.map(d=>`<option value="${d.day}" ${state.inputDay===d.day?'selected':''}>Day ${d.day}</option>`).join("")}
+        </select>
+        <input class="input-text" placeholder="항목명" value="${state.inputName}" oninput="state.inputName=this.value" onkeydown="if(event.key==='Enter')document.getElementById('cInput')?.focus()">
+      </div>
+      <div class="input-row-bottom">
+        <input class="input-number" id="cInput" placeholder="¥ 금액" type="number" value="${state.inputCost}" oninput="state.inputCost=this.value" onkeydown="if(event.key==='Enter')addSpending()">
+        <button class="btn-add" onclick="addSpending()">+ 추가</button>
+      </div>
     </div>
     <div class="input-hint">항목명이 TODO 일정명과 같으면 자동 over/under 표시</div>
   </div>
