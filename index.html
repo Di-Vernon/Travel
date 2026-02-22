@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="홋카이도 여행">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#DFF0FB">
+<meta name="description" content="준영 & 정원의 홋카이도 여행 2026">
+<title>홋카이도 여행 2026 ❄️</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❄️</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23DFF0FB' width='100' height='100' rx='20'/><text x='50' y='58' text-anchor='middle' font-size='55'>❄️</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
+html,body{overscroll-behavior:none;overflow-x:hidden}
+body{
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  min-height:100vh;min-height:100dvh;
+  background:linear-gradient(180deg,#DFF0FB 0%,#EDE7F3 40%,#F8F5FA 100%);
+  color:#2C5F8A;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar{display:none}
+input,select,button{font-family:inherit;-webkit-appearance:none;appearance:none}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield}
+
+/* Snowflakes */
+.snow-wrap{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.snowflake{position:absolute;top:-10px;border-radius:50%;background:#fff}
+
+/* Layout */
+.app{position:relative;z-index:1;padding:max(env(safe-area-inset-top,16px),16px) 16px calc(env(safe-area-inset-bottom,20px) + 20px);max-width:500px;margin:0 auto;min-height:100vh;min-height:100dvh}
+
+/* Glass Card */
+.glass{background:rgba(255,255,255,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;border:1px solid rgba(135,206,250,.3)}
+
+/* Header */
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.meta{font-size:10px;color:#7BAFD4;font-weight:600;letter-spacing:2px}
+.title{font-size:22px;font-weight:900;color:#2C5F8A;margin-top:2px}
+.sub{font-size:11px;color:#8BAFC8;margin-top:2px}
+
+/* Buttons */
+.btn-primary{background:linear-gradient(135deg,#7BC0F5,#4A9CD9);color:#fff;border:none;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(74,154,217,.3);touch-action:manipulation;transition:transform .1s}
+.btn-primary:active{transform:scale(.95)}
+.btn-secondary{background:rgba(135,206,250,.2);border:1px solid rgba(135,206,250,.3);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:#4A8ABF;cursor:pointer;touch-action:manipulation}
+
+/* Clocks */
+.clocks{display:flex;gap:10px;margin-bottom:12px}
+.clock-card{flex:1;text-align:center;padding:10px 14px}
+.clock-label{font-size:11px;color:#6B9CC7;font-weight:600;margin-bottom:2px}
+.clock-time{font-size:22px;font-weight:800;color:#2C5F8A;font-variant-numeric:tabular-nums;letter-spacing:1px}
+
+/* Day Tabs */
+.day-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+.day-tab{flex:0 0 auto;padding:8px 14px;border-radius:12px;cursor:pointer;text-align:center;font-size:12px;font-weight:700;transition:all .2s;touch-action:manipulation;scroll-snap-align:start;border:1px solid rgba(135,206,250,.3);background:rgba(255,255,255,.5);color:#5B8DB8}
+.day-tab.active{border:none;background:linear-gradient(135deg,#7BC0F5,#5AADE0);color:#fff;box-shadow:0 4px 12px rgba(74,154,217,.25)}
+.day-tab-num{font-weight:700}
+.day-tab-date{font-size:10px;opacity:.85;margin-top:1px}
+
+/* Day Header */
+.day-header{padding:12px 16px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.day-title{font-size:16px;font-weight:800;color:#2C5F8A}
+.day-sub{font-size:11px;color:#8BAFC8}
+.day-cost{text-align:right}
+.day-yen{font-size:14px;font-weight:700;color:#2C5F8A}
+.day-krw{font-size:10px;color:#8BAFC8}
+
+/* Outfit */
+.outfit-title{font-size:13px;font-weight:700;color:#5B8DB8;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.couple-badge{font-size:10px;background:#FFE4EC;color:#D4668A;padding:2px 8px;border-radius:8px;font-weight:600}
+.outfit-grid{display:flex;gap:8px;margin-bottom:14px}
+.outfit-person{flex:1;text-align:center;padding:12px 10px}
+.outfit-name{font-size:12px;font-weight:800;color:#4A8ABF;margin-bottom:10px}
+.outfit-items{display:flex;gap:6px}
+.outfit-item{flex:1;border-radius:12px;padding:10px 6px}
+.outfit-item.top{background:linear-gradient(135deg,#E8F4FD,#D4ECFC)}
+.outfit-item.bottom{background:linear-gradient(135deg,#F0E6F6,#E8D8F0)}
+.outfit-emoji{font-size:24px;margin-bottom:4px}
+.outfit-label{font-size:9px;font-weight:600;margin-bottom:2px}
+.outfit-item.top .outfit-label{color:#7BAFD4}
+.outfit-item.bottom .outfit-label{color:#A07DBF}
+.outfit-text{font-size:10px;font-weight:700;line-height:1.3}
+.outfit-item.top .outfit-text{color:#3A7CA5}
+.outfit-item.bottom .outfit-text{color:#6D4A8A}
+
+/* TODO */
+.todo-title{font-size:13px;font-weight:700;color:#5B8DB8;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.todo-item{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;margin-bottom:6px;transition:all .2s;touch-action:manipulation}
+.todo-item.unchecked{background:rgba(255,255,255,.55);border:1px solid rgba(135,206,250,.2)}
+.todo-item.checked{background:rgba(135,206,250,.12);border:1px solid rgba(135,206,250,.3);opacity:.65}
+.checkbox{width:24px;height:24px;border-radius:8px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;touch-action:manipulation}
+.checkbox.off{border:2px solid #A8D4F0;background:#fff}
+.checkbox.on{border:none;background:linear-gradient(135deg,#7BC0F5,#4A9CD9)}
+.checkbox.on::after{content:'✓';color:#fff;font-size:14px;font-weight:800}
+.todo-time{width:44px;font-size:12px;font-weight:700;color:#4A8ABF;font-variant-numeric:tabular-nums;flex-shrink:0}
+.todo-info{flex:1;min-width:0}
+.todo-activity{font-size:12px;font-weight:700;color:#2C5F8A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.todo-location{font-size:10px;color:#8BAFC8;margin-top:1px}
+.checked .todo-time,.checked .todo-activity{text-decoration:line-through;color:#9BBDD4}
+.todo-cost{text-align:right;flex-shrink:0}
+.cost-yen{font-size:12px;font-weight:700;color:#2C5F8A}
+.cost-yen.est{color:#E8A040}
+.cost-est{font-size:8px;margin-left:2px}
+.cost-free{font-size:10px;color:#B0D0E8;font-weight:600}
+.cost-diff{font-size:9px;font-weight:700;margin-top:1px}
+.cost-diff.over{color:#E05555}
+.cost-diff.under{color:#4A9A5A}
+
+/* Budget Screen */
+.budget-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.budget-title{font-size:20px;font-weight:800;color:#2C5F8A}
+.rate-bar{padding:14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.rate-icon{font-size:20px}
+.rate-val{font-size:14px;font-weight:700;color:#2C5F8A}
+.rate-time{font-size:10px;color:#8BAFC8}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.summary-card{border-radius:14px;padding:12px 8px;text-align:center}
+.summary-label{font-size:10px;font-weight:600;margin-bottom:4px}
+.summary-val{font-size:14px;font-weight:800}
+.summary-sub{font-size:10px;opacity:.7;margin-top:2px}
+.summary-edit{font-size:8px;color:#A8C0D4;margin-top:2px}
+.progress-wrap{padding:10px 14px;margin-bottom:14px}
+.progress-top{display:flex;justify-content:space-between;margin-bottom:6px}
+.progress-label{font-size:10px;color:#8BAFC8;font-weight:600}
+.progress-pct{font-size:10px;font-weight:700}
+.progress-bar{height:8px;background:#E8F0F5;border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;border-radius:4px;transition:width .5s ease}
+.progress-note{font-size:9px;color:#A8C0D4;margin-top:4px;text-align:center}
+.input-section{padding:16px;margin-bottom:16px}
+.input-title{font-size:14px;font-weight:700;color:#2C5F8A;margin-bottom:12px}
+.input-row{display:flex;gap:6px;margin-bottom:4px}
+.input-select{width:72px;padding:10px 4px;border-radius:10px;border:1px solid #D4E8F5;font-size:12px;outline:none;background:#fff;color:#4A8ABF;font-weight:600}
+.input-text{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #D4E8F5;font-size:13px;outline:none;background:#fff}
+.input-number{width:80px;padding:10px 12px;border-radius:10px;border:1px solid #D4E8F5;font-size:13px;outline:none;background:#fff}
+.input-hint{font-size:10px;color:#A8C0D4;text-align:center;margin-top:4px}
+.btn-add{background:linear-gradient(135deg,#7BC0F5,#4A9CD9);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0;touch-action:manipulation}
+.day-budget{padding:12px 14px;margin-bottom:8px}
+.day-budget-top{display:flex;justify-content:space-between;align-items:center}
+.day-budget-label{font-size:12px;font-weight:700;color:#4A8ABF}
+.day-budget-title{font-size:11px;color:#8BAFC8;margin-left:6px}
+.day-budget-planned{font-size:11px;color:#8BAFC8}
+.day-budget-actual{font-size:12px;font-weight:700;color:#2C5F8A}
+.day-budget-diff{font-size:10px;font-weight:700}
+.spending-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid rgba(135,206,250,.1);font-size:12px}
+.spending-name{color:#5B8DB8;flex:1}
+.spending-cost{font-weight:600;color:#2C5F8A;font-variant-numeric:tabular-nums}
+.spending-krw{font-size:10px;color:#8BAFC8;margin-left:6px}
+.btn-delete{border:none;border-radius:6px;padding:2px 6px;font-size:10px;cursor:pointer;font-weight:600;margin-left:6px;transition:all .15s;touch-action:manipulation}
+.btn-delete.normal{background:#FFEBEE;color:#D44A4A}
+.btn-delete.confirm{background:#D44A4A;color:#fff}
+.furukawa-card{background:rgba(129,199,132,.1);border-radius:14px;padding:12px 16px;margin-top:4px;border:1px solid rgba(129,199,132,.25);display:flex;justify-content:space-between;align-items:center}
+.furukawa-label{font-size:13px;font-weight:700;color:#4A9A5A}
+.furukawa-sub{font-size:10px;color:#8BAFC8}
+.budget-edit-input{width:100%;font-size:13px;font-weight:700;text-align:center;border:1px solid #A8D4F0;border-radius:8px;padding:4px;outline:none;background:#fff}
+.btn-confirm-budget{margin-top:4px;font-size:10px;background:#4A9CD9;color:#fff;border:none;border-radius:6px;padding:3px 10px;cursor:pointer;font-weight:600}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .3s ease}
+
+/* Install Banner */
+.install-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;padding:16px;padding-bottom:calc(env(safe-area-inset-bottom,16px) + 16px);background:rgba(255,255,255,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(135,206,250,.3);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.install-text{font-size:12px;color:#2C5F8A;font-weight:600}
+.install-sub{font-size:10px;color:#8BAFC8;margin-top:2px}
+.btn-install{background:linear-gradient(135deg,#7BC0F5,#4A9CD9);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-dismiss{background:none;border:none;color:#8BAFC8;font-size:11px;cursor:pointer;padding:4px 8px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="snow-wrap" id="snowWrap"></div>
+<div class="app" id="app"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════
+const OUTFITS=[
+  {day:1,준영:{top:"청록색 니트",bottom:"검정 바지",te:"🧶",be:"👖"},정원:{top:"니트",bottom:"회색 바지",te:"🧶",be:"👖"}},
+  {day:2,준영:{top:"셔츠 + 노란 스웨터",bottom:"청바지",te:"👔",be:"👖"},정원:{top:"노란 스웨터",bottom:"청치마",te:"🧶",be:"👗"}},
+  {day:3,준영:{top:"셔츠 + 검정조끼",bottom:"검정 바지",te:"🦺",be:"👖"},정원:{top:"검정 오프숄더",bottom:"체크무늬 롱치마",te:"👚",be:"👗"}},
+  {day:4,준영:{top:"하늘색 스웨터",bottom:"흰 바지",te:"🧶",be:"👖"},정원:{top:"하늘색 스웨터",bottom:"흰 바지",te:"🧶",be:"👖"}},
+  {day:5,준영:{top:"회색 체크 맨투맨",bottom:"흰 바지",te:"👕",be:"👖"},정원:{top:"니트",bottom:"회색 바지",te:"🧶",be:"👖"}}
+];
+
+const DAYS=[
+  {day:1,date:"2/24",wd:"화",title:"인천 → 노보리베쓰",events:[
+    {t:"10:00",a:"공항 도착",l:"인천공항",c:0,i:"✈️"},
+    {t:"11:00",a:"공항밥",l:"인천공항",c:1500,i:"🍱",e:1},
+    {t:"12:55",a:"출발",l:"인천 → 신치토세",c:0,i:"✈️"},
+    {t:"15:40",a:"신치토세 도착",l:"신치토세 공항",c:0,i:"🛬"},
+    {t:"16:30",a:"공항→노보리베쓰",l:"JR 특급열차",c:6300,i:"🚃"},
+    {t:"19:30",a:"숙소 도착",l:"다이이치 다키모토칸",c:30305,i:"🏨"},
+    {t:"20:00",a:"편의점 저녁",l:"편의점",c:1500,i:"🍜",e:1},
+    {t:"21:00",a:"밤 지옥계곡 산책",l:"지옥계곡",c:0,i:"🌋"},
+    {t:"22:00",a:"대욕탕 온천",l:"다키모토칸",c:0,i:"♨️"}
+  ]},
+  {day:2,date:"2/25",wd:"수",title:"노보리베쓰 → 삿포로",events:[
+    {t:"08:00",a:"기상 + 지옥계곡",l:"지옥계곡",c:0,i:"🌄"},
+    {t:"09:00",a:"대욕탕 온천",l:"다키모토칸",c:0,i:"♨️"},
+    {t:"10:00",a:"마린파크 닉스",l:"노보리베쓰",c:5600,i:"🐧"},
+    {t:"11:00",a:"펭귄워크 + 기차밥",l:"마린파크/역",c:1000,i:"🍙",e:1},
+    {t:"12:00",a:"삿포로 이동",l:"JR 특급열차",c:3800,i:"🚃"},
+    {t:"14:30",a:"호텔 체크인",l:"게이오 플라자",c:42522,i:"🏨"},
+    {t:"15:00",a:"수프카레킹+맥주",l:"수프카레킹",c:4200,i:"🍛"},
+    {t:"15:30",a:"마지산도",l:"삿포로 시내",c:1300,i:"🍞"},
+    {t:"16:00",a:"맥주공장 견학",l:"삿포로 맥주 박물관",c:1000,i:"🍺",e:1},
+    {t:"17:00",a:"징기스칸 마사진",l:"스스키노 본점",c:4200,i:"🥩"},
+    {t:"19:00",a:"편의점·야시장",l:"삿포로 시내",c:1500,i:"🏪",e:1}
+  ]},
+  {day:3,date:"2/26",wd:"목",title:"삿포로 시내 관광",events:[
+    {t:"10:00",a:"기상",l:"게이오 플라자",c:0,i:"😴"},
+    {t:"11:30",a:"해물덮밥",l:"해물 덮밥 전문점",c:2500,i:"🍣",e:1},
+    {t:"14:30",a:"미소 라멘",l:"라멘 요코초",c:1000,i:"🍜",e:1},
+    {t:"15:00",a:"니카상 포토존",l:"스스키노",c:0,i:"📸"},
+    {t:"19:00",a:"성게 요리",l:"우미사쿠라",c:9000,i:"🦔"},
+    {t:"21:00",a:"야키니쿠",l:"쿠이테이/시부키",c:12000,i:"🥩"},
+    {t:"22:30",a:"대관람차",l:"노르베사",c:2000,i:"🎡"},
+    {t:"23:00",a:"편의점 털이",l:"편의점",c:1000,i:"🏪",e:1}
+  ]},
+  {day:4,date:"2/27",wd:"금",title:"삿포로 → 오타루",events:[
+    {t:"10:00",a:"기상",l:"게이오 플라자",c:0,i:"😴"},
+    {t:"11:00",a:"체크아웃→오타루",l:"JR 쾌속",c:3400,i:"🚃"},
+    {t:"14:00",a:"점심 초밥",l:"향토요리 오오토미",c:4000,i:"🍣"},
+    {t:"14:30",a:"오르골당 본관",l:"오르골당",c:0,i:"🎵"},
+    {t:"15:00",a:"오타루 자유시간",l:"오타루 시내",c:0,i:"🚶"},
+    {t:"16:00",a:"전세탕",l:"오타루 후루카와",c:2500,i:"♨️"},
+    {t:"18:00",a:"저녁 가이세키",l:"오타루 후루카와",c:8000,i:"🍽️"},
+    {t:"19:00",a:"오타루 운하 야경",l:"오타루 운하",c:0,i:"🌃"}
+  ]},
+  {day:5,date:"2/28",wd:"토",title:"오타루 → 인천",events:[
+    {t:"07:00",a:"기상 + 전세탕",l:"오타루 후루카와",c:2500,i:"♨️"},
+    {t:"09:00",a:"아침 가이세키",l:"오타루 후루카와",c:8000,i:"🍽️"},
+    {t:"10:30",a:"체크아웃→공항",l:"JR (1시간30분)",c:0,i:"🚃"},
+    {t:"12:30",a:"공항 면세+밥",l:"신치토세 공항",c:2000,i:"🛍️",e:1},
+    {t:"14:00",a:"비행기 (먀먀미)",l:"신치토세→인천",c:0,i:"✈️"},
+    {t:"14:40",a:"비행기 (돼지)",l:"신치토세→인천",c:0,i:"✈️"},
+    {t:"17:15",a:"도착 (먀먀미)",l:"인천공항",c:0,i:"🛬"},
+    {t:"18:10",a:"도착 (돼지)",l:"인천공항",c:0,i:"🛬"}
+  ]}
+];
+const FURUKAWA=41000;
+const RATE_API="https://open.er-api.com/v6/latest/JPY";
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+const load=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const fmt=n=>n.toLocaleString("ko-KR");
+
+let state={
+  activeDay:0,
+  showBudget:false,
+  checked:load("hk-c",{}),
+  rate:load("hk-r",9.36),
+  rateTime:load("hk-rt","기본값 사용 중"),
+  rateLoading:false,
+  spending:load("hk-s",[]),
+  budget:load("hk-b",200000),
+  editingBudget:false,
+  budgetInput:"",
+  confirmDelete:null,
+  inputDay:1,
+  inputName:"",
+  inputCost:""
+};
+
+function setState(patch){
+  Object.assign(state,patch);
+  render();
+}
+
+// ═══════════════════════════════════════════
+// SNOWFLAKES
+// ═══════════════════════════════════════════
+function initSnow(){
+  const w=document.getElementById("snowWrap");
+  for(let i=0;i<18;i++){
+    const f=document.createElement("div");
+    f.className="snowflake";
+    const s=2+Math.random()*5,d=7+Math.random()*8,dl=Math.random()*10,l=Math.random()*100,o=.12+Math.random()*0.2,dr=(Math.random()-.5)*30;
+    f.style.cssText=`left:${l}%;width:${s}px;height:${s}px;opacity:${o};animation:sf${i} ${d}s linear ${dl}s infinite`;
+    w.appendChild(f);
+    const style=document.createElement("style");
+    style.textContent=`@keyframes sf${i}{0%{transform:translateY(-10px)translateX(0)}50%{transform:translateY(50vh)translateX(${dr}px)}100%{transform:translateY(105vh)translateX(0)}}`;
+    document.head.appendChild(style);
+  }
+}
+
+// ═══════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════
+function updateClocks(){
+  const n=new Date();
+  const o={hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false};
+  const kr=document.getElementById("clkKR");
+  const jp=document.getElementById("clkJP");
+  if(kr)kr.textContent=n.toLocaleTimeString("ko-KR",{timeZone:"Asia/Seoul",...o});
+  if(jp)jp.textContent=n.toLocaleTimeString("ko-KR",{timeZone:"Asia/Tokyo",...o});
+}
+
+// ═══════════════════════════════════════════
+// RATE
+// ═══════════════════════════════════════════
+async function refreshRate(){
+  setState({rateLoading:true});
+  try{
+    const r=await fetch(RATE_API);const d=await r.json();
+    if(d.rates?.KRW){
+      const nr=d.rates.KRW;const t=new Date().toLocaleString("ko-KR")+" 기준";
+      save("hk-r",nr);save("hk-rt",t);
+      setState({rate:nr,rateTime:t,rateLoading:false});
+      return;
+    }
+  }catch(e){console.error(e)}
+  setState({rateLoading:false});
+}
+
+// ═══════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════
+function toggleCheck(di,ei){
+  const k=`${di}-${ei}`;
+  state.checked[k]=!state.checked[k];
+  save("hk-c",state.checked);
+  render();
+}
+
+function addSpending(){
+  const n=state.inputName.trim(),c=Number(state.inputCost);
+  if(!n||!c||c<=0)return;
+  const item={id:Date.now(),name:n,cost:c,day:state.inputDay};
+  state.spending.push(item);
+  save("hk-s",state.spending);
+  setState({inputName:"",inputCost:""});
+}
+
+function removeSpending(id){
+  if(state.confirmDelete!==id){setState({confirmDelete:id});return}
+  state.spending=state.spending.filter(x=>x.id!==id);
+  save("hk-s",state.spending);
+  setState({confirmDelete:null});
+}
+
+function saveBudget(){
+  const v=Number(state.budgetInput);
+  if(v>0){state.budget=v;save("hk-b",v)}
+  setState({editingBudget:false});
+}
+
+function spendByDay(dn){return state.spending.filter(x=>x.day===dn).reduce((s,x)=>s+x.cost,0)}
+
+function getActual(di,ei){
+  const ev=DAYS[di].events[ei];
+  if(ev.c===0)return null;
+  const m=state.spending.find(x=>x.day===DAYS[di].day&&x.name===ev.a);
+  return m?m.cost:null;
+}
+
+// ═══════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════
+function render(){
+  const app=document.getElementById("app");
+  if(state.showBudget){renderBudget(app);return}
+  renderMain(app);
+  updateClocks();
+}
+
+function renderMain(app){
+  const d=DAYS[state.activeDay];
+  const o=OUTFITS[state.activeDay];
+  const isCouple=o.준영.top===o.정원.top&&o.준영.bottom===o.정원.bottom;
+  const dt=d.events.reduce((s,e)=>s+(e.c||0),0);
+
+  let h=`
+  <div class="header fade-in">
+    <div>
+      <div class="meta">2026.02.24 — 02.28</div>
+      <div class="title">홋카이도 여행 ❄️</div>
+      <div class="sub">준영 & 정원 · 4박 5일</div>
+    </div>
+    <button class="btn-primary" onclick="setState({showBudget:true})">💰 가계부</button>
+  </div>
+
+  <div class="clocks">
+    <div class="clock-card glass">
+      <div class="clock-label">🇰🇷 대한민국</div>
+      <div class="clock-time" id="clkKR">--:--:--</div>
+    </div>
+    <div class="clock-card glass">
+      <div class="clock-label">🇯🇵 삿포로</div>
+      <div class="clock-time" id="clkJP">--:--:--</div>
+    </div>
+  </div>
+
+  <div class="day-tabs">
+    ${DAYS.map((x,i)=>`
+      <div class="day-tab ${state.activeDay===i?'active':''}" onclick="setState({activeDay:${i}})">
+        <div class="day-tab-num">Day ${x.day}</div>
+        <div class="day-tab-date">${x.date} ${x.wd}</div>
+      </div>
+    `).join("")}
+  </div>
+
+  <div class="glass day-header fade-in">
+    <div>
+      <div class="day-title">${d.title}</div>
+      <div class="day-sub">${d.date} (${d.wd}) · ${d.events.length}개 일정</div>
+    </div>
+    <div class="day-cost">
+      <div class="day-yen">¥${fmt(dt)}</div>
+      <div class="day-krw">₩${fmt(Math.round(dt*state.rate))}</div>
+    </div>
+  </div>
+
+  <div class="outfit-title">👗 OUTFIT ${isCouple?'<span class="couple-badge">💕 커플룩</span>':''}</div>
+  <div class="outfit-grid">
+    ${["준영","정원"].map(nm=>{
+      const p=o[nm];
+      return `<div class="glass outfit-person">
+        <div class="outfit-name">${nm==="준영"?"🧑 준영":"👩 정원"}</div>
+        <div class="outfit-items">
+          <div class="outfit-item top">
+            <div class="outfit-emoji">${p.te}</div>
+            <div class="outfit-label">상의</div>
+            <div class="outfit-text">${p.top}</div>
+          </div>
+          <div class="outfit-item bottom">
+            <div class="outfit-emoji">${p.be}</div>
+            <div class="outfit-label">하의</div>
+            <div class="outfit-text">${p.bottom}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join("")}
+  </div>
+
+  <div class="todo-title">📋 TO DO</div>
+  ${d.events.map((ev,i)=>{
+    const ck=!!state.checked[`${state.activeDay}-${i}`];
+    const ac=getActual(state.activeDay,i);
+    const diff=(ac!==null&&ev.c>0)?ac-ev.c:null;
+    return `<div class="todo-item ${ck?'checked':'unchecked'}" onclick="toggleCheck(${state.activeDay},${i})">
+      <div class="checkbox ${ck?'on':'off'}"></div>
+      <div class="todo-time">${ev.t}</div>
+      <div class="todo-info">
+        <div class="todo-activity">${ev.i} ${ev.a}</div>
+        <div class="todo-location">📍 ${ev.l}</div>
+      </div>
+      <div class="todo-cost">
+        ${ev.c>0?`
+          <div class="cost-yen ${ev.e?'est':''}">¥${fmt(ev.c)}${ev.e?'<span class="cost-est">⚡</span>':''}</div>
+          ${diff!==null&&diff!==0?`<div class="cost-diff ${diff>0?'over':'under'}">${diff>0?`+¥${fmt(diff)} over`:`-¥${fmt(Math.abs(diff))} under`}</div>`:''}
+        `:`<div class="cost-free">무료</div>`}
+      </div>
+    </div>`;
+  }).join("")}
+  `;
+  app.innerHTML=h;
+  updateClocks();
+}
+
+function renderBudget(app){
+  const ts=state.spending.reduce((s,x)=>s+x.cost,0);
+  const rem=state.budget-ts;
+  const tp=DAYS.reduce((s,d)=>s+d.events.reduce((a,e)=>a+(e.c||0),0),0)+FURUKAWA;
+  const pct=state.budget>0?Math.round(ts/state.budget*100):0;
+  const pColor=pct>90?"#D44A4A":pct>70?"#E8A040":"#4A8ABF";
+  const pBg=pct>90?"linear-gradient(90deg,#E88,#D44)":pct>70?"linear-gradient(90deg,#F0C060,#E8A040)":"linear-gradient(90deg,#7BC0F5,#4A9CD9)";
+
+  let h=`
+  <div class="budget-header fade-in">
+    <div class="budget-title">💰 여행 가계부</div>
+    <button class="btn-primary" onclick="setState({showBudget:false})">📅 일정으로</button>
+  </div>
+
+  <div class="glass rate-bar">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="rate-icon">💱</span>
+      <div>
+        <div class="rate-val">1¥ = ₩${state.rate.toFixed(2)}</div>
+        <div class="rate-time">${state.rateTime}</div>
+      </div>
+    </div>
+    <button class="btn-secondary" onclick="refreshRate()" ${state.rateLoading?'disabled':''}>${state.rateLoading?'⏳':'🔄 새로고침'}</button>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card" style="background:#E8F4FD;cursor:pointer" onclick="setState({editingBudget:true,budgetInput:String(state.budget)})">
+      <div class="summary-label" style="color:#4A8ABF">처음 금액</div>
+      ${state.editingBudget?`
+        <input class="budget-edit-input" id="budgetInput" type="number" value="${state.budgetInput}" oninput="state.budgetInput=this.value" onkeydown="if(event.key==='Enter')saveBudget()">
+        <button class="btn-confirm-budget" onclick="event.stopPropagation();saveBudget()">확인</button>
+      `:`
+        <div class="summary-val" style="color:#4A8ABF">¥${fmt(state.budget)}</div>
+        <div class="summary-sub" style="color:#4A8ABF">₩${fmt(Math.round(state.budget*state.rate))}</div>
+        <div class="summary-edit">탭하여 수정</div>
+      `}
+    </div>
+    <div class="summary-card" style="background:#FFF0E0">
+      <div class="summary-label" style="color:#D4882A">사용 금액</div>
+      <div class="summary-val" style="color:#D4882A">¥${fmt(ts)}</div>
+      <div class="summary-sub" style="color:#D4882A">₩${fmt(Math.round(ts*state.rate))}</div>
+    </div>
+    <div class="summary-card" style="background:${rem>=0?'#E8F5E9':'#FFEBEE'}">
+      <div class="summary-label" style="color:${rem>=0?'#4A9A5A':'#D44A4A'}">남은 금액</div>
+      <div class="summary-val" style="color:${rem>=0?'#4A9A5A':'#D44A4A'}">¥${fmt(Math.abs(rem))}</div>
+      <div class="summary-sub" style="color:${rem>=0?'#4A9A5A':'#D44A4A'}">${rem<0?'⚠️ 초과! ':''}₩${fmt(Math.round(Math.abs(rem)*state.rate))}</div>
+    </div>
+  </div>
+
+  <div class="glass progress-wrap">
+    <div class="progress-top">
+      <span class="progress-label">사용률</span>
+      <span class="progress-pct" style="color:${pColor}">${pct}%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,pct)}%;background:${pBg}"></div></div>
+    <div class="progress-note">계획 총액 ¥${fmt(tp)} (₩${fmt(Math.round(tp*state.rate))}) · 후루카와 ¥${fmt(FURUKAWA)} 포함</div>
+  </div>
+
+  <div class="glass input-section">
+    <div class="input-title">💸 지출 기록</div>
+    <div class="input-row">
+      <select class="input-select" onchange="state.inputDay=Number(this.value)">
+        ${DAYS.map(d=>`<option value="${d.day}" ${state.inputDay===d.day?'selected':''}>Day ${d.day}</option>`).join("")}
+      </select>
+      <input class="input-text" placeholder="항목명" value="${state.inputName}" oninput="state.inputName=this.value" onkeydown="if(event.key==='Enter')document.getElementById('cInput')?.focus()">
+      <input class="input-number" id="cInput" placeholder="¥ 금액" type="number" value="${state.inputCost}" oninput="state.inputCost=this.value" onkeydown="if(event.key==='Enter')addSpending()">
+      <button class="btn-add" onclick="addSpending()">+</button>
+    </div>
+    <div class="input-hint">항목명이 TODO 일정명과 같으면 자동 over/under 표시</div>
+  </div>
+
+  <div style="font-size:13px;font-weight:700;color:#2C5F8A;margin-bottom:10px">📊 일별 내역</div>
+  ${DAYS.map(d=>{
+    const pl=d.events.reduce((s,e)=>s+(e.c||0),0);
+    const ac=spendByDay(d.day);
+    const items=state.spending.filter(x=>x.day===d.day);
+    const df=ac-pl;
+    return `<div class="glass day-budget">
+      <div class="day-budget-top" style="margin-bottom:${items.length?'8':'0'}px">
+        <div>
+          <span class="day-budget-label">Day ${d.day}</span>
+          <span class="day-budget-title">${d.title}</span>
+        </div>
+        <div style="text-align:right">
+          <div class="day-budget-planned">계획 ¥${fmt(pl)}</div>
+          ${ac>0?`<div class="day-budget-actual">실제 ¥${fmt(ac)}</div>`:''}
+          ${ac>0&&df!==0?`<div class="day-budget-diff" style="color:${df>0?'#E05555':'#4A9A5A'}">${df>0?`▲ ¥${fmt(df)} over`:`▼ ¥${fmt(Math.abs(df))} under`}</div>`:''}
+        </div>
+      </div>
+      ${items.map(it=>`
+        <div class="spending-item">
+          <span class="spending-name">${it.name}</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="spending-cost">¥${fmt(it.cost)}</span>
+            <span class="spending-krw">₩${fmt(Math.round(it.cost*state.rate))}</span>
+            <button class="btn-delete ${state.confirmDelete===it.id?'confirm':'normal'}" onclick="event.stopPropagation();removeSpending(${it.id})">${state.confirmDelete===it.id?'확인?':'✕'}</button>
+          </div>
+        </div>
+      `).join("")}
+    </div>`;
+  }).join("")}
+
+  <div class="furukawa-card">
+    <div>
+      <div class="furukawa-label">🏯 오타루 후루카와</div>
+      <div class="furukawa-sub">숙박비 (전세탕 별도 ¥2,500/회)</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:14px;font-weight:700;color:#2C5F8A">¥${fmt(FURUKAWA)}</div>
+      <div style="font-size:10px;color:#8BAFC8">₩${fmt(Math.round(FURUKAWA*state.rate))}</div>
+    </div>
+  </div>
+  `;
+  app.innerHTML=h;
+  if(state.editingBudget){
+    const inp=document.getElementById("budgetInput");
+    if(inp){inp.focus();inp.select()}
+  }
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+initSnow();
+render();
+setInterval(updateClocks,1000);
+refreshRate();
+
+// PWA install prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  showInstallBanner();
+});
+
+function showInstallBanner(){
+  if(document.querySelector('.install-banner'))return;
+  const b=document.createElement('div');
+  b.className='install-banner';
+  b.innerHTML=`
+    <div>
+      <div class="install-text">❄️ 홈 화면에 추가하시겠어요?</div>
+      <div class="install-sub">앱처럼 바로 실행할 수 있어요</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="btn-install" onclick="installApp()">설치</button>
+      <button class="btn-dismiss" onclick="this.parentElement.parentElement.remove()">닫기</button>
+    </div>
+  `;
+  document.body.appendChild(b);
+}
+
+async function installApp(){
+  if(!deferredPrompt)return;
+  deferredPrompt.prompt();
+  const{outcome}=await deferredPrompt.userChoice;
+  deferredPrompt=null;
+  document.querySelector('.install-banner')?.remove();
+}
+</script>
+
+<!-- PWA Manifest (inline) -->
+<script>
+const manifest={
+  name:"홋카이도 여행 2026",
+  short_name:"홋카이도",
+  description:"준영 & 정원의 홋카이도 여행",
+  start_url:"./",
+  display:"standalone",
+  background_color:"#DFF0FB",
+  theme_color:"#DFF0FB",
+  orientation:"portrait",
+  icons:[{
+    src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%23DFF0FB' width='512' height='512' rx='100'/><text x='256' y='300' text-anchor='middle' font-size='280'>❄️</text></svg>",
+    sizes:"512x512",
+    type:"image/svg+xml",
+    purpose:"any maskable"
+  }]
+};
+const blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+const link=document.createElement('link');
+link.rel='manifest';
+link.href=URL.createObjectURL(blob);
+document.head.appendChild(link);
+</script>
+
+<!-- Service Worker (inline registration) -->
+<script>
+if('serviceWorker' in navigator){
+  const swCode=`
+    const CACHE='hk-v1';
+    self.addEventListener('install',e=>{self.skipWaiting()});
+    self.addEventListener('activate',e=>{e.waitUntil(clients.claim())});
+    self.addEventListener('fetch',e=>{
+      e.respondWith(
+        caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
+          if(res.status===200){
+            const c=res.clone();
+            caches.open(CACHE).then(cache=>cache.put(e.request,c));
+          }
+          return res;
+        }).catch(()=>caches.match(e.request)))
+      );
+    });
+  `;
+  const swBlob=new Blob([swCode],{type:'application/javascript'});
+  const swUrl=URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swUrl).catch(()=>{});
+}
+</script>
+</body>
+</html>
