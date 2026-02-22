@@ -345,16 +345,40 @@ input[type=number]{-moz-appearance:textfield}
 .btn-dismiss{background:none;border:none;color:var(--text-secondary);font-size:11px;cursor:pointer;padding:4px 8px}
 .hidden{display:none!important}
 
-/* Swipe hint */
-.swipe-indicator{position:absolute;top:50%;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;pointer-events:none;opacity:0;transition:opacity .15s}
-.swipe-indicator.left{left:4px}
-.swipe-indicator.right{right:4px}
+/* Swipe Animation */
+.day-content{position:relative;overflow:hidden}
+.day-content-inner{transition:none;will-change:transform}
+.day-content-inner.snapping{transition:transform .3s cubic-bezier(.25,.46,.45,.94),opacity .3s ease}
+.swipe-preview{position:fixed;top:50%;z-index:50;transform:translateY(-50%);pointer-events:none;opacity:0;transition:opacity .15s}
+.swipe-preview.visible{opacity:1}
+.swipe-preview-bubble{background:var(--glass-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:14px;padding:10px 16px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.12)}
+.swipe-preview-day{font-size:13px;font-weight:800;color:var(--text-primary)}
+.swipe-preview-title{font-size:10px;color:var(--text-secondary);margin-top:2px}
+.swipe-preview.left{left:12px}
+.swipe-preview.right{right:12px}
+.swipe-overlay{position:fixed;inset:0;pointer-events:none;z-index:49;opacity:0;transition:opacity .15s}
+.swipe-overlay.dragging{opacity:1;background:linear-gradient(90deg,rgba(0,0,0,.04) 0%,transparent 15%,transparent 85%,rgba(0,0,0,.04) 100%)}
 </style>
 </head>
 <body>
 <div class="snow-wrap" id="snowWrap"></div>
 <div class="app" id="app"></div>
 <div class="toast-container" id="toastContainer"></div>
+
+<!-- Swipe Preview Bubbles -->
+<div class="swipe-preview left" id="swipePreviewLeft">
+  <div class="swipe-preview-bubble">
+    <div class="swipe-preview-day" id="spLeftDay"></div>
+    <div class="swipe-preview-title" id="spLeftTitle"></div>
+  </div>
+</div>
+<div class="swipe-preview right" id="swipePreviewRight">
+  <div class="swipe-preview-bubble">
+    <div class="swipe-preview-day" id="spRightDay"></div>
+    <div class="swipe-preview-title" id="spRightTitle"></div>
+  </div>
+</div>
+<div class="swipe-overlay" id="swipeOverlay"></div>
 
 <!-- Quick Spend Modal -->
 <div class="modal-overlay" id="quickModal">
@@ -386,7 +410,7 @@ const CONFIG = {
   currency: { from: "JPY", to: "KRW", symbol: "¥", toSymbol: "₩" },
   rateApi: "https://open.er-api.com/v6/latest/JPY",
   defaultRate: 9.36,
-  defaultBudget: 200000,
+  defaultBudget: 170000,
   storagePrefix: "hk",
   timezones: [
     { label: "🇰🇷 대한민국", tz: "Asia/Seoul" },
@@ -746,30 +770,146 @@ function handleRestore(event) {
 // ═══════════════════════════════════════════
 // SWIPE NAVIGATION (Feature 3)
 // ═══════════════════════════════════════════
-let _swipeStartX = 0, _swipeStartY = 0, _swiping = false;
+// ═══════════════════════════════════════════
+// SWIPE NAVIGATION (with drag animation)
+// ═══════════════════════════════════════════
+let _swipeStartX = 0, _swipeStartY = 0, _swiping = false, _swipeLocked = false, _swipeDx = 0;
+const SWIPE_THRESHOLD = 60;
+const SWIPE_MAX_VISUAL = 120;
+
 function initSwipe() {
   const app = document.getElementById("app");
+
   app.addEventListener("touchstart", (e) => {
     if (state.showBudget) return;
     _swipeStartX = e.touches[0].clientX;
     _swipeStartY = e.touches[0].clientY;
     _swiping = true;
+    _swipeLocked = false;
+    _swipeDx = 0;
+    const inner = document.getElementById("dayContentInner");
+    if (inner) { inner.classList.remove("snapping"); inner.style.transform = ""; }
+  }, { passive: true });
+
+  app.addEventListener("touchmove", (e) => {
+    if (!_swiping || state.showBudget) return;
+    const dx = e.touches[0].clientX - _swipeStartX;
+    const dy = e.touches[0].clientY - _swipeStartY;
+
+    // Decide scroll direction on first significant move
+    if (!_swipeLocked && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) {
+      if (Math.abs(dy) > Math.abs(dx) * 0.7) { _swiping = false; return; }
+      _swipeLocked = true;
+    }
+    if (!_swipeLocked) return;
+
+    // Boundary check — don't allow swiping past first/last day
+    const canLeft = dx < 0 && state.activeDay < DAYS.length - 1;
+    const canRight = dx > 0 && state.activeDay > 0;
+    if (!canLeft && !canRight) { _swipeDx = 0; updateSwipeVisuals(0); return; }
+
+    // Dampen the drag (rubber band feel)
+    const clamped = Math.sign(dx) * Math.min(Math.abs(dx), SWIPE_MAX_VISUAL);
+    _swipeDx = dx;
+
+    const inner = document.getElementById("dayContentInner");
+    if (inner) inner.style.transform = `translateX(${clamped}px)`;
+
+    updateSwipeVisuals(dx);
   }, { passive: true });
 
   app.addEventListener("touchend", (e) => {
-    if (!_swiping || state.showBudget) return;
+    if (!_swiping || state.showBudget) { _swiping = false; return; }
     _swiping = false;
+
     const dx = e.changedTouches[0].clientX - _swipeStartX;
-    const dy = e.changedTouches[0].clientY - _swipeStartY;
-    if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.7) return;
-    if (dx < 0 && state.activeDay < DAYS.length - 1) {
-      setState({ activeDay: state.activeDay + 1 });
-      scrollActiveTab();
-    } else if (dx > 0 && state.activeDay > 0) {
-      setState({ activeDay: state.activeDay - 1 });
-      scrollActiveTab();
+    const inner = document.getElementById("dayContentInner");
+    const overlay = document.getElementById("swipeOverlay");
+
+    hideSwipePreviews();
+    if (overlay) overlay.classList.remove("dragging");
+
+    if (Math.abs(dx) >= SWIPE_THRESHOLD && _swipeLocked) {
+      const direction = dx < 0 ? 1 : -1; // 1 = next, -1 = prev
+      const newDay = state.activeDay + direction;
+      if (newDay >= 0 && newDay < DAYS.length) {
+        // Animate slide out
+        if (inner) {
+          inner.classList.add("snapping");
+          inner.style.transform = `translateX(${-direction * 100}%)`;
+          inner.addEventListener("transitionend", function handler() {
+            inner.removeEventListener("transitionend", handler);
+            state.activeDay = newDay;
+            render();
+            scrollActiveTab();
+            // Slide in from opposite side
+            requestAnimationFrame(() => {
+              const newInner = document.getElementById("dayContentInner");
+              if (newInner) {
+                newInner.style.transform = `translateX(${direction * 60}px)`;
+                newInner.style.opacity = "0.3";
+                requestAnimationFrame(() => {
+                  newInner.classList.add("snapping");
+                  newInner.style.transform = "translateX(0)";
+                  newInner.style.opacity = "1";
+                  newInner.addEventListener("transitionend", function h2() {
+                    newInner.removeEventListener("transitionend", h2);
+                    newInner.classList.remove("snapping");
+                    newInner.style.opacity = "";
+                  }, { once: true });
+                });
+              }
+            });
+          }, { once: true });
+          return;
+        }
+      }
+    }
+
+    // Snap back
+    if (inner) {
+      inner.classList.add("snapping");
+      inner.style.transform = "translateX(0)";
+      inner.addEventListener("transitionend", function handler() {
+        inner.removeEventListener("transitionend", handler);
+        inner.classList.remove("snapping");
+      }, { once: true });
     }
   }, { passive: true });
+}
+
+function updateSwipeVisuals(dx) {
+  const overlay = document.getElementById("swipeOverlay");
+  const previewLeft = document.getElementById("swipePreviewLeft");
+  const previewRight = document.getElementById("swipePreviewRight");
+  const absDx = Math.abs(dx);
+  const pastThreshold = absDx >= SWIPE_THRESHOLD;
+
+  if (overlay) overlay.classList.toggle("dragging", absDx > 15);
+
+  // Swiping right → show previous day on left
+  if (dx > 0 && state.activeDay > 0) {
+    const prev = DAYS[state.activeDay - 1];
+    document.getElementById("spLeftDay").textContent = `← Day ${prev.day}`;
+    document.getElementById("spLeftTitle").textContent = prev.title;
+    previewLeft.classList.toggle("visible", pastThreshold);
+    previewRight.classList.remove("visible");
+  }
+  // Swiping left → show next day on right
+  else if (dx < 0 && state.activeDay < DAYS.length - 1) {
+    const next = DAYS[state.activeDay + 1];
+    document.getElementById("spRightDay").textContent = `Day ${next.day} →`;
+    document.getElementById("spRightTitle").textContent = next.title;
+    previewRight.classList.toggle("visible", pastThreshold);
+    previewLeft.classList.remove("visible");
+  } else {
+    hideSwipePreviews();
+  }
+}
+
+function hideSwipePreviews() {
+  document.getElementById("swipePreviewLeft")?.classList.remove("visible");
+  document.getElementById("swipePreviewRight")?.classList.remove("visible");
 }
 
 // B-4: scroll active tab into view
@@ -829,6 +969,8 @@ function renderMain(app) {
     `).join("")}
   </div>
 
+  <div class="day-content">
+  <div id="dayContentInner" class="day-content-inner">
   <div class="glass day-header fade-in">
     <div>
       <div class="day-title">${d.title}</div>
@@ -886,6 +1028,8 @@ function renderMain(app) {
       </div>
     </div>`;
   }).join("")}
+  </div>
+  </div>
   `;
   app.innerHTML = h;
   updateClocks();
